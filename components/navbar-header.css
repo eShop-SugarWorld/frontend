@@ -1,0 +1,35 @@
+@media (max-width: 1024px) {
+    .navbar-nav {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-end;
+    }
+
+    .navbar-nav .nav-item {
+        margin-left: 15px;
+        margin-right: 5px;
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar-nav .nav-item {
+        margin-left: 10px;
+    }
+
+}
+
+
+.search-container {
+    background-color: #f0f0f0;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.search-container input {
+    width: 250px;
+}
+
+.search-container button {
+    margin-left: 10px;
+}
