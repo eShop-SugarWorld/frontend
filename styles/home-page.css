@@ -1,0 +1,161 @@
+
+.carousel-indicators {
+    list-style-type: none;
+}
+.carousel-inner img {
+    max-height: 600px;
+    object-fit: cover;
+    width: 100%;
+}
+
+
+@media (max-width: 1024px) {
+    .navbar-nav {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-end;
+    }
+
+    .navbar-nav .nav-item {
+        margin-left: 15px;
+        margin-right: 5px;
+    }
+}
+@media (min-width: 768px) and (max-width: 1024px) {
+    .carousel-inner img {
+        height: 300px;
+        object-fit: cover;
+    }
+
+}
+
+@media (max-width: 768px) {
+    .carousel-inner img {
+        height: 250px;
+        object-fit: cover;
+    }
+    .navbar-nav .nav-item {
+        margin-left: 10px;
+    }
+
+}
+@media (min-width: 1024px) {
+    .popularProductsMainDiv .carousel-inner .carousel-item  img {
+        height: 400px;
+        object-fit: cover;
+    }
+}
+
+
+
+/*for buttons Previous Next*/
+.carousel-control-prev,
+.carousel-control-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    background-color: rgba(0, 0, 0, 0.4);
+    border: none;
+    padding: 8px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 40%;
+}
+.carousel-control-prev {
+    left: 2px;
+}
+
+.carousel-control-next {
+    right: 2px;
+}
+
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    width: 20px;
+    height: 20px;
+}
+
+
+
+.category-section {
+    width: 100%;
+    padding: 20px 0;
+    background: #53a3ee;
+}
+
+.category-btn {
+    background-color: #ff69b4;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 20px;
+    transition: 0.3s;
+    width: 100%;
+}
+
+.category-btn:hover {
+    background-color: #ff1493;
+}
+
+.category-container {
+    max-width: 900px;
+    margin: auto;
+}
+
+
+
+
+
+
+
+
+.search-container {
+    background-color: #f0f0f0;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.search-container input {
+    width: 250px;
+}
+
+.search-container button {
+    margin-left: 10px;
+}
+
+
+
+
+
+.popup {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #fff;
+    color: #333;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+    max-height: 35px;
+}
+
+.contact-item:hover .popup {
+    display: block;
+}
+
+.contact-item {
+    position: relative;
+}
+
+
+
+
+
