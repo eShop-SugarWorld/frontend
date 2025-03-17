@@ -46,9 +46,25 @@
         object-fit: cover;
     }
 }
-
-
-
+.myNavbar{
+    background-color: #81BFB7;
+}
+body{
+    font-family: Baskerville;
+}
+.textHome h1{
+    color: #F0F9F8;
+    font-family:  Baskerville;
+    font-size: 30px !important;
+}
+.textOption li a{
+    color: #F0F9F8;
+    font-family: Baskerville;
+    font-size: 20px;
+}
+.categories button{
+    background-color: #F3A2BE;
+}
 /*for buttons Previous Next*/
 .carousel-control-prev,
 .carousel-control-next {
@@ -86,7 +102,7 @@
 .category-section {
     width: 100%;
     padding: 20px 0;
-    background: #53a3ee;
+    background:#81BFB7;
 }
 
 .category-btn {
@@ -100,7 +116,7 @@
 }
 
 .category-btn:hover {
-    background-color: #ff1493;
+    background-color: #FFD3DD;
 }
 
 .category-container {
@@ -127,8 +143,18 @@
 
 .search-container button {
     margin-left: 10px;
-}
 
+}
+.panelSearch{
+padding: 10px;
+    padding-right: 60px;
+    padding-left: 60px;
+
+
+}
+.containerS{
+    background-color: #F0F9F8;
+}
 
 
 
@@ -155,7 +181,9 @@
     position: relative;
 }
 
-
+footer  {
+   background-color: #81BFB7;
+}
 
 
 
