@@ -1,58 +1,3 @@
-
-.carousel-indicators {
-    list-style-type: none;
-}
-.carousel-inner img {
-    max-height: 600px;
-    object-fit: cover;
-    width: 100%;
-}
-
-
-@media (max-width: 1024px) {
-    .navbar-nav {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: flex-end;
-    }
-
-    .navbar-nav .nav-item {
-        margin-left: 15px;
-        margin-right: 5px;
-    }
-}
-@media (min-width: 768px) and (max-width: 1024px) {
-    .carousel-inner img {
-        height: 300px;
-        object-fit: cover;
-    }
-
-}
-
-@media (max-width: 768px) {
-    .carousel-inner img {
-        height: 250px;
-        object-fit: cover;
-    }
-    .navbar-nav .nav-item {
-        margin-left: 10px;
-    }
-
-}
-@media (min-width: 1024px) {
-    .popularProductsMainDiv .carousel-inner .carousel-item  img {
-        height: 400px;
-        object-fit: cover;
-    }
-}
-.popularProductsMainDiv{
-    background-color: #F0F9F8;
-    
-}
-.popularProductsMainDiv h2 {
-    color: #81BFB7;
-}
 .myNavbar {
     background-color: #81BFB7;
     padding: 10px 0; 
@@ -60,15 +5,8 @@
 body {
     font-family: Baskerville;
     background-color: #F0F9F8; 
-   
     margin: 0; 
 }
-
-    /* background-image: url("../images/homePage/elements/splash.png");
-    background-position:  bottom left; 
-    background-repeat: no-repeat; 
-    background-size: 500px 1000px; */
-
 .textHome h1 {
     color: #F0F9F8; 
     font-size: 35px !important;
@@ -85,45 +23,6 @@ body {
     background-color: #F3A2BE;
     color:#F0F9F8;
 }
-
-/*for buttons Previous Next*/
-.carousel-control-prev,
-.carousel-control-next {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 10;
-    background-color: #F3A2BE;
-    border: none;
-    padding: 8px;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 40%;
-}
-.carousel-control-prev:hover,
-.carousel-control-next:hover {
-    background-color: #F3A2BE; 
-}
-.carousel-control-prev {
-    left: 2px;
-}
-
-.carousel-control-next {
-    right: 2px;
-}
-
-
-.carousel-control-prev-icon,
-.carousel-control-next-icon {
-    width: 20px;
-    height: 20px;
-}
-
-
-
 .category-section {
     width: 100%;
     padding: 20px 0;
@@ -149,14 +48,6 @@ body {
     max-width: 900px;
     margin: auto;
 }
-
-
-
-
-
-
-
-
 .search-container {
     background-color: #f0f0f0;
     padding: 10px;
@@ -185,7 +76,6 @@ body {
     
 }
 
-
 #searchInput {
     border: 2px #FFD3DD solid; 
     background-color: #F0F9F8;
@@ -195,13 +85,6 @@ body {
     color: #F3A2BE; /* Колір плейсхолдера */
     opacity: 1; /* Для однакової яскравості (деякі браузери затемнюють плейсхолдер) */
 }
-.carousel-caption {
-    background-color: rgba(243, 162, 190, 0.9); /* Напівпрозорий #81BFB7 */
-    color: #F0F9F8;
-    padding: 10px;
-    border-radius: 5px;
-}
-
 #searchButton {
     background-color: #F0F9F8;
     color: #F3A2BE; 
@@ -209,13 +92,6 @@ body {
     transition: background-color 0.3s;
     margin-left: 5px;
     
-}
-#clickButton{
-    background-color: #F0F9F8;
-    color: rgb(243, 162, 190); 
-    border: 2px #FFD3DD solid; 
-    transition: background-color 0.3s;
-    margin-left: 5px;
 }
 #searchButton:hover {
     background-color: #FFD3DD;
@@ -267,6 +143,44 @@ footer a:hover {
 .card-text {
     color: #F0F9F8; 
 }
+
+
+
+
+
+
+/* Фільтри */
+.filters {
+    background-color: #C6E6E3;
+    border: 2px solid #FFD3DD;
+    border-radius: 10px;
+}
+.filters h3 {
+    color: #81BFB7;
+    font-size: 24px;
+}
+.filters h5 {
+    color: #81BFB7;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+.filter-section {
+    background-color: #F0F9F8;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+.form-select,
+.form-check-label {
+    color: #333;
+}
+.form-range::-webkit-slider-thumb {
+    background: #F3A2BE;
+}
+.form-range::-moz-range-thumb {
+    background: #F3A2BE;
+}
+
 .card {
     background-color: #F0F9F8;
     border: 2px dashed #F3A2BE;
@@ -286,10 +200,6 @@ footer a:hover {
     text-align: center;
 }
 .card-text {
-    color: #81BFB7;
-    margin-bottom: 15px;
-}
-.card-title {
     color: #81BFB7;
     margin-bottom: 15px;
 }
@@ -326,4 +236,19 @@ footer a:hover {
         height: 200px;
     
     }
+}
+
+/* Пагінація */
+.page-link {
+    color: #81BFB7;
+    border: 1px solid #FFD3DD;
+}
+.page-item.active .page-link {
+    background-color: #F3A2BE;
+    border-color: #F3A2BE;
+    color: #F0F9F8;
+}
+.page-link:hover {
+    background-color: #FFD3DD;
+    color: #F0F9F8;
 }
