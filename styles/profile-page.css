@@ -141,76 +141,137 @@ footer a:hover {
 
 
 
+.profile-wrapper {
+    flex-wrap: wrap;
+    gap: 30px;
+}
 
-.signup-form {
+.sidebar {
     background-color: #C6E6E3;
     border: 2px solid #FFD3DD;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
 }
-.signup-form h2 {
+.tab-toggle {
+    display: none;
+}
+.sidebar h3 {
+    color: #81BFB7;
+    font-size: 24px;
+}
+
+.profile-tab {
+    display: block;
+    background-color: #F0F9F8;
+    color: #81BFB7;
+    border: 2px solid #FFD3DD;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.profile-tab:hover {
+    background-color: #FFD3DD;
+}
+
+
+#tab1:checked ~ .col-md-9 #profile-info,
+#tab2:checked ~ .col-md-9 #change-password,
+#tab3:checked ~ .col-md-9 #order-history {
+    display: block;
+}
+
+#tab1:checked ~ .sidebar .profile-tab[for="tab1"],
+#tab2:checked ~ .sidebar .profile-tab[for="tab2"],
+#tab3:checked ~ .sidebar .profile-tab[for="tab3"] {
+    background-color: #F3A2BE;
+    color: #F0F9F8;
+    border-color: #F3A2BE;
+}
+
+
+.tab-content {
+    background-color: #C6E6E3;
+    border: 2px solid #FFD3DD;
+    border-radius: 10px;
+    padding: 20px;
+    display: none;
+}
+
+#tab1:checked ~ #profile-info,
+#tab2:checked ~ #change-password,
+#tab3:checked ~ #order-history {
+    display: block;
+}
+
+
+.tab-content h2 {
     color: #81BFB7;
     font-size: 28px;
 }
+
 .form-label {
     color: #81BFB7;
 }
+
 .form-control {
     border: 2px solid #FFD3DD;
     background-color: #F0F9F8;
     color: #F3A2BE;
+    border-radius: 10px;
 }
+
 .form-control::placeholder {
     color: #F3A2BE;
     opacity: 1;
 }
-.form-check-label {
-    color: #81BFB7;
-}
-.form-check-input:checked {
-    background-color: #F3A2BE;
+
+.form-control:focus {
     border-color: #F3A2BE;
+    box-shadow: none;
 }
+
 .btn-custom {
     background-color: #F3A2BE;
     color: #F0F9F8;
     border: 2px solid #FFD3DD;
     border-radius: 5px;
-    transition: background-color 0.3s, box-shadow 0.3s;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-.btn-custom:hover {
-    background-color: #FFD3DD;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    padding: 8px 20px;
+    transition: all 0.3s ease;
 }
 
-.signup-img {
-    max-height: 300px;
-    object-fit: cover;
-    border-radius: 10px;
+.btn-custom:hover {
+    background-color: #FFD3DD;
+    color: #F3A2BE;
+}
+
+
+.table {
     background-color: #F0F9F8;
+    border: 2px solid #FFD3DD;
 }
+
+.table th {
+    background-color: #F3A2BE;
+    color: #F0F9F8;
+    border: 2px solid #FFD3DD;
+}
+
+.table td {
+    border: 2px solid #FFD3DD;
+    color: #81BFB7;
+}
+
 @media (max-width: 767px) {
-    .signup-form {
-        padding: 15px;
+    .profile-wrapper {
+        flex-direction: column;
     }
-    .signup-form h2 {
-        font-size: 24px;
-    }
-    .signup-img {
-        max-height: 200px;
-        margin-top: 20px;
+    .sidebar, .tab-content {
+        margin-bottom: 20px;
     }
 }
-@media (max-width: 576px) {
-    .signup-form h2 {
-        font-size: 20px;
-    }
-    .signup-img {
-        max-height: 150px;
-    }
-    .btn-custom {
-        font-size: 14px;
-        padding: 8px;
-    }
-}
+
+
+
