@@ -55,8 +55,7 @@ body {
     margin: auto;
 }
 .search-container {
-    background-color: #f0f0f0;
-    padding: 10px;
+    padding-right: 10px;
     border-radius: 5px;
 }
 
@@ -395,4 +394,9 @@ body {
     color: #F0F9F8;
     border-color: #F3A2BE;
 }
-
+.card-title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+}
