@@ -1,23 +1,30 @@
+
+.textOption li a:hover {
+    color: #F3A2BE;
+}
+
+
+
 .myNavbar {
-    background-color: #81BFB7;
-    padding: 10px 0;
+    background-color: #F0F9F8 ;
+    padding: 10px 0; 
 }
 body {
-    font-family: Baskerville;
-    background-color: #F0F9F8;
-    margin: 0;
+    font-family:  'brandon-grotesque',sans-serif;
+    background-color: #F0F9F8; 
+   
+    margin: 0; 
 }
+
+
 .textHome h1 {
-    color: #F0F9F8;
+    color: #81BFB7;
     font-size: 35px !important;
 }
 .textOption li a{
-    color: #F0F9F8;
-    font-family: Baskerville;
+    color: #81BFB7;
+    font-family:  'brandon-grotesque',sans-serif;
     font-size: 20px;
-}
-.textOption li a:hover {
-    color: #FFD3DD;
 }
 .categories button{
     background-color: #F3A2BE;
@@ -67,6 +74,7 @@ body {
 
     padding-right: 60px;
     padding-left: 60px;
+    padding-top: 20px;
 
 
 }
@@ -133,17 +141,13 @@ footer a:hover {
     color: #333;
 }
 
-body {
-    font-family: Baskerville;
-    background-color: #F0F9F8;
-    margin: 0;
-}
 
 /* Контейнер продукту */
 .product-container {
     height: 100vh; /* Висота на весь екран */
     display: flex;
     overflow: hidden; /* Щоб бічні панелі не створювали горизонтальну прокрутку */
+    margin-top: 50px;
 }
 
 /* Ліва панель */
@@ -159,7 +163,7 @@ body {
     color: #81BFB7;
 }
 .left-panel p {
-    color: #333;
+    color: #81BFB7;
 }
 .thumbnail {
     border: 2px solid #FFD3DD;
@@ -171,6 +175,19 @@ body {
     background-color: #F0F9F8;
     overflow-y: auto; /* Прокрутка тільки в центральній частині */
     height: 100vh;
+}
+.center-panel::-webkit-scrollbar {
+    display: none; /* Приховує скролбар */
+}
+
+/* Приховуємо скролбар для Firefox */
+.center-panel {
+    scrollbar-width: none; /* Приховує скролбар у Firefox */
+}
+
+/* Для Internet Explorer і Edge (старі версії) */
+.center-panel {
+    -ms-overflow-style: none; /* Приховує скролбар у IE/Edge */
 }
 .main-image {
     width: 100%;
@@ -206,11 +223,13 @@ body {
     color: #F3A2BE;
 }
 .right-panel ul {
-    color: #333;
+    color: #81BFB7;
+    
 }
+
 .btn-custom {
     background-color: #F3A2BE;
-    color: #F0F9F8;
+    color: #F0F9F8 !important;
     border: 2px solid #FFD3DD;
     border-radius: 5px;
     transition: background-color 0.3s, box-shadow 0.3s;
@@ -220,7 +239,6 @@ body {
     background-color: #FFD3DD;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
-
 /* Рекомендовані продукти */
 .container h2 {
     color: #81BFB7;

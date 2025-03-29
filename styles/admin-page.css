@@ -1,23 +1,29 @@
+.textOption li a:hover {
+    color: #F3A2BE;
+}
+
+
+
 .myNavbar {
-    background-color: #81BFB7;
-    padding: 10px 0;
+    background-color: #F0F9F8 ;
+    padding: 10px 0; 
 }
 body {
-    font-family: Baskerville;
-    background-color: #F0F9F8;
-    margin: 0;
+    font-family:  'brandon-grotesque',sans-serif;
+    background-color: #F0F9F8; 
+   
+    margin: 0; 
 }
+
+
 .textHome h1 {
-    color: #F0F9F8;
+    color: #81BFB7;
     font-size: 35px !important;
 }
 .textOption li a{
-    color: #F0F9F8;
-    font-family: Baskerville;
+    color: #81BFB7;
+    font-family:  'brandon-grotesque',sans-serif;
     font-size: 20px;
-}
-.textOption li a:hover {
-    color: #FFD3DD;
 }
 .categories button{
     background-color: #F3A2BE;
@@ -67,6 +73,7 @@ body {
 
     padding-right: 60px;
     padding-left: 60px;
+    padding-top: 20px;
 
 
 }
@@ -253,7 +260,7 @@ body {
     border: 2px solid #FFD3DD;
 }
 .btn-delete:hover {
-    background-color: #F3A2BE; /
+    background-color: #F3A2BE; 
     color: #FF0000;
     border: 2px solid #FFD3DD;
 }

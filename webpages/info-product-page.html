@@ -8,59 +8,58 @@
     <title>Home Page</title>
 </head>
 <body>
-<header>
-    <nav class="navbar navbar-expand-lg myNavbar">
-        <div class="container d-flex justify-content-between align-items-center">
-
-            <a class="navbar-brand d-flex align-items-center" href="#">
-                <!-- <img src="../images/homePage/logo.png" alt="Logo" width="40" height="40" class="me-2 rounded"> -->
-            </a>
-
-            <a href="home-page.html" class="position-absolute start-50 translate-middle-x text-decoration-none textHome">
-                <h1 class="fs-4 mb-0">World Sweets</h1>
-            </a>
-
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-                <ul class="navbar-nav textOption" >
-                    <li class="nav-item"><a class="nav-link " href="login-page.html">Account</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Cart</a></li>
-                </ul>
+    <header>
+        <nav class="navbar navbar-expand-lg myNavbar">
+            <div class="container d-flex justify-content-between align-items-center">
+    
+                <a class="navbar-brand d-flex align-items-center" href="#">
+                     <img src="../images/homePage/logo.png" alt="Logo" width="40" height="40" class="me-2 rounded">
+                </a>
+    
+                <a href="home-page.html" class="position-absolute start-50 translate-middle-x text-decoration-none textHome">
+                    <h1 class="fs-4 mb-0">World Sweets</h1>
+                </a>
+    
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+    
+                <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                    <ul class="navbar-nav textOption" >
+                        <li class="nav-item"><a class="nav-link " href="login-page.html">Account</a></li>
+                        <li class="nav-item"><a class="nav-link" href="cart-page.html">Cart</a></li>
+                        <li class="nav-item"><a class="nav-link" href="profile-page.html">Profile</a></li>
+                    </ul>
+                </div>
             </div>
-        </div>
-    </nav>
-</header>
-<div>
-
-</div>
-<div class="containerS">
-    <div class="d-flex panelSearch">
-        <input class="form-control" type="search" id="searchInput" placeholder="Search" aria-label="Search">
-        <button class="btn " type="button" id="searchButton">Search</button>
-    </div>
-</div>
-<div class="category-section">
-    <div class="container category-container ">
-        <div class="row g-4 categories">
-            <div class="col-6 col-md-3 ">
-                <button class="category-btn">Category 1</button>
-            </div>
-            <div class="col-6 col-md-3">
-                <button class="category-btn">Category 2</button>
-            </div>
-            <div class="col-6 col-md-3">
-                <button class="category-btn">Category 3</button>
-            </div>
-            <div class="col-6 col-md-3">
-                <button class="category-btn">Category 4</button>
-            </div>
-
+        </nav>
+    </header>
+    
+    <div class="containerS">
+        <div class="d-flex panelSearch">
+            <input class="form-control" type="search" id="searchInput" placeholder="Search" aria-label="Search">
+            <button class="btn " type="button" id="searchButton" onclick="window.location.href='search-results.html'">Search</button>
         </div>
     </div>
-</div>
+    <div class="category-section">
+        <div class="container category-container ">
+            <div class="row g-4 categories">
+                <div class="col-6 col-md-3 ">
+                    <button class="category-btn" onclick="window.location.href='search-results.html'">NEW ARRIVALS</button>
+                </div>
+                <div class="col-6 col-md-3">
+                    <button class="category-btn" onclick="window.location.href='search-results.html'">SHOP CANDY</button>
+                </div>
+                <div class="col-6 col-md-3">
+                    <button class="category-btn" onclick="window.location.href='search-results.html'">SHOP GIFTS</button>
+                </div>
+                <div class="col-6 col-md-3">
+                    <button class="category-btn" onclick="window.location.href='search-results.html'">GIFT CONCIERGE</button>
+                </div>
+    
+            </div>
+        </div>
+    </div>
 
 
 <div class="container-fluid product-container">
@@ -107,7 +106,7 @@
                 <button class="btn btn-custom w-100 mb-3">Add to Bag</button>
                 <h5>Price: $25.00</h5>
                 <h5 class="mt-4">Ingredients</h5>
-                <ul>
+                <ul class="listOfIng">
                     <li>Sugar</li>
                     <li>Flour</li>
                     <li>Butter</li>
@@ -124,33 +123,39 @@
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
         <!-- Продукт 1 -->
         <div class="col">
-            <div class="card h-100">
-                <img src="../images/homePage/popularProducts/ChocolateCookies.jpeg" class="card-img-top" alt="Recommended Product 1">
-                <div class="card-body">
-                    <p class="card-text">description</p>
-                    <button class="btn btn-custom">add to bag</button>
+            <a href="info-product-page.html" class="text-decoration-none">
+                <div class="card h-100">
+                    <img src="../images/homePage/popularProducts/ChocolateCookies.jpeg" class="card-img-top" alt="Recommended Product 1">
+                    <div class="card-body">
+                        <p class="card-text">description</p>
+                        <button class="btn btn-custom">add to bag</button>
+                    </div>
                 </div>
-            </div>
+            </a>
         </div>
         <!-- Продукт 2 -->
         <div class="col">
-            <div class="card h-100">
-                <img src="../images/homePage/popularProducts/chocolateDubai.jpeg" class="card-img-top" alt="Recommended Product 2">
-                <div class="card-body">
-                    <p class="card-text">description</p>
-                    <button class="btn btn-custom">add to bag</button>
+            <a href="info-product-page.html" class="text-decoration-none">
+                <div class="card h-100">
+                    <img src="../images/homePage/popularProducts/chocolateDubai.jpeg" class="card-img-top" alt="Recommended Product 2">
+                    <div class="card-body">
+                        <p class="card-text">description</p>
+                        <button class="btn btn-custom">add to bag</button>
+                    </div>
                 </div>
-            </div>
+            </a>
         </div>
         <!-- Продукт 3 -->
         <div class="col">
-            <div class="card h-100">
-                <img src="../images/homePage/popularProducts/cake.jpeg" class="card-img-top" alt="Recommended Product 3">
-                <div class="card-body">
-                    <p class="card-text">description</p>
-                    <button class="btn btn-custom">add to bag</button>
+            <a href="info-product-page.html" class="text-decoration-none">
+                <div class="card h-100">
+                    <img src="../images/homePage/popularProducts/cake.jpeg" class="card-img-top" alt="Recommended Product 3">
+                    <div class="card-body">
+                        <p class="card-text">description</p>
+                        <button class="btn btn-custom">add to bag</button>
+                    </div>
                 </div>
-            </div>
+            </a>
         </div>
     </div>
 </div>

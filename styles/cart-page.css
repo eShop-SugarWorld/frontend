@@ -1,35 +1,42 @@
-/* Глобальні стилі */
-body {
-    font-family: Baskerville;
-    background-color: #F0F9F8;
-    margin: 0;
-}
 
-/* Navbar */
-.myNavbar {
-    background-color: #81BFB7;
-    padding: 10px 0;
-}
-.textHome h1 {
-    color: #F0F9F8;
-    font-size: 30px !important;
-}
-.textOption li a {
-    color: #F0F9F8;
-    font-family: Baskerville;
-    font-size: 20px;
-}
 .textOption li a:hover {
     color: #F3A2BE;
 }
 
+
+
+.myNavbar {
+    background-color: #F0F9F8 ;
+    padding: 10px 0; 
+}
+body {
+    font-family:  'brandon-grotesque',sans-serif;
+    background-color: #F0F9F8; 
+   
+    margin: 0; 
+}
+
+
+.textHome h1 {
+    color: #81BFB7;
+    font-size: 35px !important;
+}
+.textOption li a{
+    color: #81BFB7;
+    font-family:  'brandon-grotesque',sans-serif;
+    font-size: 20px;
+}
 /* Пошук */
 .containerS {
     background-color: #81BFB7;
 }
-.panelSearch {
+.panelSearch{
+
     padding-right: 60px;
     padding-left: 60px;
+    padding-top: 20px;
+
+
 }
 #searchInput {
     border: 2px #FFD3DD solid;
@@ -218,7 +225,7 @@ body {
 /* Загальні стилі для кнопок */
 .btn-custom {
     background-color: #F3A2BE;
-    color: #F0F9F8;
+    color: #F0F9F8 !important;
     border: 2px solid #FFD3DD;
     border-radius: 5px;
     transition: background-color 0.3s, box-shadow 0.3s;

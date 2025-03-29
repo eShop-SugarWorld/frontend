@@ -54,11 +54,11 @@
     color: #81BFB7;
 }
 .myNavbar {
-    background-color: #81BFB7;
+    background-color: #F0F9F8 ;
     padding: 10px 0; 
 }
 body {
-    font-family: Baskerville;
+    font-family:  'brandon-grotesque',sans-serif;
     background-color: #F0F9F8; 
    
     margin: 0; 
@@ -70,14 +70,15 @@ body {
     background-size: 500px 1000px; */
 
 .textHome h1 {
-    color: #F0F9F8; 
+    color: #81BFB7;
     font-size: 35px !important;
 }
 .textOption li a{
-    color: #F0F9F8;
-    font-family: Baskerville;
+    color: #81BFB7;
+    font-family:  'brandon-grotesque',sans-serif;
     font-size: 20px;
 }
+
 .textOption li a:hover {
     color: #FFD3DD; 
 }
@@ -176,6 +177,7 @@ body {
 
     padding-right: 60px;
     padding-left: 60px;
+    padding-top: 20px;
 
 
 }
@@ -183,6 +185,9 @@ body {
     background-color: #81BFB7; 
     
     
+}
+.car{
+    margin-top: 70px;
 }
 
 
