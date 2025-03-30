@@ -87,8 +87,8 @@ body {
     color: #F3A2BE ; 
 }
 #searchInput::placeholder {
-    color: #F3A2BE; /* Колір плейсхолдера */
-    opacity: 1; /* Для однакової яскравості (деякі браузери затемнюють плейсхолдер) */
+    color: #F3A2BE; 
+    opacity: 1; 
 }
 #searchButton {
     background-color: #F0F9F8;
@@ -139,7 +139,7 @@ footer a:hover {
 }
 
 
-/* Секції оформлення */
+
 .checkout-section {
     background-color: #C6E6E3;
     border: 2px solid #FFD3DD;
@@ -182,7 +182,7 @@ footer a:hover {
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 
-/* Інформаційна секція */
+
 .info-section {
     background-color: #C6E6E3;
     border: 2px solid #FFD3DD;
@@ -202,7 +202,7 @@ footer a:hover {
     justify-content: center;
 }
 
-/* Footer */
+
 footer {
     background-color: #81BFB7;
 }
@@ -233,7 +233,7 @@ footer a:hover {
     position: relative;
 }
 
-/* Респонзивність */
+
 @media (max-width: 991px) {
     .info-section {
         margin-top: 20px;
@@ -271,7 +271,7 @@ footer a:hover {
         height: 100px;
     }
 }
-/* Інформаційна секція */
+
 .info-section {
     background-color: #C6E6E3;
     border: 2px solid #FFD3DD;
@@ -343,7 +343,7 @@ footer a:hover {
     background-color: #FFD3DD;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
-/* Респонзивність */
+
 @media (max-width: 991px) {
     .info-section {
         margin-top: 20px;
