@@ -247,13 +247,18 @@
                 </div>
               </div>
               <div class="mb-3">
-                <label class="form-label">Tags</label>
+                <label class="form-label">Ingredients</label>
                 <div class="d-flex gap-2 flex-wrap">
-                  <span class="tag">tag <span class="remove-tag">×</span></span>
-                  <span class="tag">tag <span class="remove-tag">×</span></span>
-                  <span class="tag">tag <span class="remove-tag">×</span></span>
+                  <span class="tag">ingredient <span class="remove-tag">×</span></span>
+                  <span class="tag">ingredient <span class="remove-tag">×</span></span>
+                  <span class="tag">ingredient <span class="remove-tag">×</span></span>
                   <div class="d-flex gap-2 align-items-center">
-                    <input type="text" class="form-control tag-input" id="tagInput" placeholder="Enter a tag">
+                    <select class="form-control tag-select" id="tagSelect">
+                      <option value="" disabled selected>choose ingredients</option>
+                      <option value="tag1">ingredient 1</option>
+                      <option value="tag2">ingredient 2</option>
+                      <option value="tag3">ingredient 3</option>
+                    </select>
                     <button type="button" class="btn tag-btn" onclick="addTag()">Add Tag</button>
                   </div>
                 </div>

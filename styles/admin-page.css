@@ -332,7 +332,7 @@ body {
 
 
 
-.tag-input {
+#tagSelect {
     max-width: 150px;
     height: 30px;
     font-size: 14px;
@@ -341,8 +341,7 @@ body {
     background-color: #F0F9F8;
     color: #F3A2BE;
 }
-
-.tag-input::placeholder {
+#еag-input::placeholder {
     color: #F3A2BE;
     opacity: 1;
     font-size: 14px;
@@ -351,11 +350,11 @@ body {
 .tag-btn {
     padding: 4px 12px;
     font-size: 14px;
-    line-height: 1.5;
+    line-height: 1;
     background-color: #F3A2BE;
     color: #F0F9F8;
     border: none;
-    border-radius: 5px;
+    border-radius: 7px;
     transition: background-color 0.3s;
 }
 
