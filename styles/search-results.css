@@ -87,8 +87,8 @@ body {
     color: #F3A2BE ; 
 }
 #searchInput::placeholder {
-    color: #F3A2BE; /* Колір плейсхолдера */
-    opacity: 1; /* Для однакової яскравості (деякі браузери затемнюють плейсхолдер) */
+    color: #F3A2BE; 
+    opacity: 1; 
 }
 #searchButton {
     background-color: #F0F9F8;
@@ -159,7 +159,7 @@ footer a:hover {
 
 
 
-/* Фільтри */
+
 .filters {
     background-color: #C6E6E3;
     border: 2px solid #FFD3DD;
@@ -202,9 +202,9 @@ footer a:hover {
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
 }
 .card-img-top {
-    height: 200px; /* Фіксована висота для зображень */
-    object-fit: cover; /* Щоб зображення не спотворювалось */
-    border-radius: 10px 10px 0 0; /* Закруглення зверху */
+    height: 200px; 
+    object-fit: cover; 
+    border-radius: 10px 10px 0 0; 
 }
 .card-body {
     text-align: center;
@@ -226,7 +226,7 @@ footer a:hover {
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 
-/* Респонзивність */
+
 @media (max-width: 991px) {
     .card-img-top {
         height: 150px;
@@ -248,7 +248,7 @@ footer a:hover {
     }
 }
 
-/* Пагінація */
+
 .page-link {
     color: #81BFB7;
     border: 1px solid #FFD3DD;

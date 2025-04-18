@@ -142,22 +142,22 @@ footer a:hover {
 }
 
 
-/* Контейнер продукту */
+
 .product-container {
-    height: 100vh; /* Висота на весь екран */
+    height: 100vh; 
     display: flex;
-    overflow: hidden; /* Щоб бічні панелі не створювали горизонтальну прокрутку */
+    overflow: hidden; 
     margin-top: 50px;
 }
 
-/* Ліва панель */
+
 .left-panel {
     background-color: #C6E6E3;
     border-right: 2px solid #FFD3DD;
     position: sticky;
     top: 0;
     height: 100vh;
-    overflow-y: auto; /* Прокрутка, якщо контент довший */
+    overflow-y: auto; 
 }
 .left-panel h3 {
     color: #81BFB7;
@@ -170,24 +170,24 @@ footer a:hover {
     border-radius: 5px;
 }
 
-/* Центральна панель */
+
 .center-panel {
     background-color: #F0F9F8;
-    overflow-y: auto; /* Прокрутка тільки в центральній частині */
+    overflow-y: auto; 
     height: 100vh;
 }
 .center-panel::-webkit-scrollbar {
-    display: none; /* Приховує скролбар */
+    display: none; 
 }
 
-/* Приховуємо скролбар для Firefox */
+
 .center-panel {
-    scrollbar-width: none; /* Приховує скролбар у Firefox */
+    scrollbar-width: none; 
 }
 
-/* Для Internet Explorer і Edge (старі версії) */
+
 .center-panel {
-    -ms-overflow-style: none; /* Приховує скролбар у IE/Edge */
+    -ms-overflow-style: none; 
 }
 .main-image {
     width: 100%;
@@ -201,7 +201,7 @@ footer a:hover {
     color: #81BFB7;
 }
 
-/* Права панель */
+
 .right-panel {
     background-color: #C6E6E3;
     border-left: 2px solid #FFD3DD;
@@ -239,7 +239,7 @@ footer a:hover {
     background-color: #FFD3DD;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
-/* Рекомендовані продукти */
+
 .container h2 {
     color: #81BFB7;
 }
@@ -266,7 +266,7 @@ footer a:hover {
     margin-bottom: 15px;
 }
 
-/* Респонзивність */
+
 @media (max-width: 991px) {
     .product-container {
         height: auto;

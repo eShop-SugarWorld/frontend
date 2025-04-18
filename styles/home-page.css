@@ -87,7 +87,7 @@ body {
     color:#F0F9F8;
 }
 
-/*for buttons Previous Next*/
+
 .carousel-control-prev,
 .carousel-control-next {
     position: absolute;
@@ -311,7 +311,7 @@ footer a:hover {
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 
-/* Респонзивність */
+
 @media (max-width: 991px) {
     .card-img-top {
         height: 150px;
