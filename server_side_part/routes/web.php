@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\LoginController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -31,3 +32,9 @@ Route::get('/registration', function () {
 })->name('registration');
 
 Route::post('/registration', [RegisterController::class, 'store'])->name('registration');
+Route::post('/login', [LoginController::class, 'login'])->name('login.submit');
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
+Route::get('/profile', function () {
+    return view('profile-page');
+})->name('profile');

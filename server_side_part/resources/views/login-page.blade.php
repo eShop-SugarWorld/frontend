@@ -28,7 +28,8 @@
                                     <input type="checkbox" class="form-check-input" id="rememberMe">
                                     <label class="form-check-label" for="rememberMe">Remember me</label>
                                 </div>
-                                <a href="{{ route('home') }}" class="btn btn-custom w-100">Log in</a>
+{{--                                <a href="{{ route('home') }}" class="btn btn-custom w-100">Log in</a>--}}
+                                <button id="loginBtn" class="btn btn-custom w-100">Log in</button>
                                 <div class="text-center mt-3">
                                     <small>Don't have an account? <a href="{{ route('registration') }}" class="text-decoration-none">Sign up here</a></small>
                                 </div>
@@ -43,3 +44,46 @@
         </div>
     </div>
 @endsection
+@section('scripts')
+    <script>
+        document.getElementById('loginBtn').addEventListener('click', function () {
+            const csrfToken = '{{ csrf_token() }}';
+
+            const payload = {
+                email: document.getElementById('email').value,
+                password: document.getElementById('password').value,
+            };
+
+            fetch("{{ route('login.submit') }}", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                    "X-CSRF-TOKEN": csrfToken,
+                    "X-Requested-With": "XMLHttpRequest"
+                },
+                body: JSON.stringify(payload)
+            })
+                .then(res => res.json().then(data => {
+                    if (!res.ok) throw data;
+                    return data;
+                }))
+                .then(data => {
+                    if (data.success) {
+                        window.location.href = "{{ route('home') }}";
+                    } else {
+                        alert(data.message || "Login failed");
+                    }
+                })
+                .catch(err => {
+                    if (err.errors) {
+                        const messages = Object.values(err.errors).flat().join('\n');
+                        alert(messages);
+                    } else {
+                        alert(err.message || "Something went wrong");
+                    }
+                });
+        });
+    </script>
+@endsection
+

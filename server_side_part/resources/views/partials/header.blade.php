@@ -12,9 +12,24 @@
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                 <ul class="navbar-nav textOption">
-                    <li class="nav-item"><a class="nav-link" href="{{ route('login') }}">Account</a></li>
+                    @auth
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('profile') }}">Profile</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" onclick="logout(event)">Log out</a>
+{{--                            <form action="{{ route('logout') }}" method="POST" style="display: inline;">--}}
+{{--                                @csrf--}}
+{{--                                <button type="submit" class="nav-link btn btn-link" style="cursor: pointer;">Log out</button>--}}
+{{--                            </form>--}}
+                        </li>
+                    @else
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('login') }}">Account</a>
+                        </li>
+                    @endauth
                     <li class="nav-item"><a class="nav-link" href="cart-page.html">Cart</a></li>
-                    <li class="nav-item"><a class="nav-link" href="profile-page.html">Profile</a></li>
+
                 </ul>
             </div>
         </div>

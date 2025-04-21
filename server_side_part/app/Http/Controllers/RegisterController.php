@@ -10,8 +10,8 @@ class RegisterController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'first_name' => 'required|string|max:255',
-            'last_name'  => 'required|string|max:255',
+            'first_name' => 'required|string|max:255|regex:/^[\pL\s]+$/u',
+            'last_name'  => 'required|string|max:255|regex:/^[\pL\s]+$/u',
             'email'      => 'required|email|unique:user_auth,email',
             'password'   => 'required|min:6|confirmed',
         ],
@@ -19,9 +19,11 @@ class RegisterController extends Controller
                 'first_name.required' => 'Please provide your first name.',
                 'first_name.string' => 'Your first name must be a valid string.',
                 'first_name.max' => 'Your first name cannot exceed 255 characters.',
+                'first_name.regex' => 'Your first name must only contain letters .',
                 'last_name.required' => 'Please provide your last name.',
                 'last_name.string' => 'Your last name must be a valid string.',
                 'last_name.max' => 'Your last name cannot exceed 255 characters.',
+                'last_name.regex' => 'Your last name must only contain letters .',
                 'email.required' => 'Please provide your email.',
                 'email.email' => 'Please provide a valid email address.',
                 'email.unique' => 'This email is already in use.',
