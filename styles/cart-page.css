@@ -2,7 +2,12 @@
 .textOption li a:hover {
     color: #F3A2BE;
 }
-
+.textHome {
+    position: fixed;
+    top: 0;
+    padding: 15px 0;
+    text-align: center;
+}
 
 
 .myNavbar {
@@ -274,6 +279,16 @@ footer a:hover {
 
 
 @media (max-width: 991px) {
+    .navbar-nav {
+        display: flex;
+        flex-direction: row;
+        justify-content: right;
+        flex-wrap: wrap;
+        padding: 5px 0 0 0;
+    }
+    .nav-item {
+        margin: 15px 0 10px 10px;
+    }
     .cart-items {
         margin-bottom: 30px;
     }
@@ -294,6 +309,16 @@ footer a:hover {
     }
 }
 @media (max-width: 767px) {
+    .navbar-nav {
+        display: flex;
+        flex-direction: row;
+        justify-content: right;
+        flex-wrap: wrap;
+        padding: 5px 0 0 0;
+    }
+    .nav-item {
+        margin: 15px 0 10px 10px;
+    }
     .cart-items-list {
         max-height: 250px;
     }
@@ -328,6 +353,16 @@ footer a:hover {
     }
 }
 @media (max-width: 576px) {
+    .navbar-nav {
+        display: flex;
+        flex-direction: row;
+        justify-content: right;
+        flex-wrap: wrap;
+        padding: 5px 0 0 0;
+    }
+    .nav-item {
+        margin: 15px 0 10px 10px;
+    }
     .cart-items h2,
     .cart-info h3 {
         font-size: 20px;
@@ -352,6 +387,50 @@ footer a:hover {
     .carousel-control-next-icon {
         width: 25px;
         height: 25px;
+    }
+    .containerS {
+        width: 100% !important;
+        padding-left: 10px !important;
+        padding-right: 10px !important;
+        padding-top: 0 !important;
+        padding-bottom: 10px !important;
+        margin: 0 !important;
+    }
+
+    .panelSearch {
+        padding: 15px 10px !important;
+        margin: 0 !important;
+        width: 100% !important;
+        box-sizing: border-box;
+    }
+
+    .panelSearch .form-control {
+        width: 100% !important;
+        max-width: none !important;
+        margin-right: 5px;
+    }
+
+    .panelSearch .btn {
+        width: auto !important;
+        flex-shrink: 0;
+    }
+    .categories .col-6 {
+        display: flex;
+        justify-content: center;
+    }
+    .textHome h1 {
+        font-size: 25px !important;
+        text-align: center;
+    }
+
+    .category-btn {
+        height: 50px;
+        font-size: 14px;
+        padding: 8px 10px;
+        text-align: center;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 }
 .card-title {
