@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\ProductController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,9 +20,7 @@ Route::get('/', function () {
     return view('home-page');
 })->name('home');
 
-Route::get('/search-results', function () {
-    return view('search-results');
-})->name('search.results');
+Route::get('/search', [ProductController::class, 'searchResults'])->name('search.results');
 
 Route::get('/login', function () {
     return view('login-page');
@@ -38,3 +37,5 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('/profile', function () {
     return view('profile-page');
 })->name('profile');
+
+Route::get('/product/{id}', [ProductController::class, 'show'])->name('product.show');

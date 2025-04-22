@@ -69,7 +69,7 @@ return new class extends Migration {
             $table->string('name');
             $table->text('description');
             $table->decimal('price', 8, 2);
-            $table->dateTime('created_at');
+            $table->timestamps();
         });
 
         // Order_item
@@ -124,7 +124,8 @@ return new class extends Migration {
         Schema::create('images', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('product_id');
-            $table->string('images_url');
+//            $table->binary('image_data');
+            $table->text('image_data');
             $table->timestamps();
 
             $table->foreign('product_id')->references('id')->on('product')->onDelete('cascade');

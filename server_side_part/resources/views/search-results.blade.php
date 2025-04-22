@@ -71,103 +71,45 @@
 
                 <div class="col-lg-9 col-md-8 col-12">
                     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
-                        <div class="col">
-                            <a href="info-product-page.html" class="text-decoration-none">
-                                <div class="card h-100">
-                                    <img src="../images/homePage/popularProducts/cookies-8394894_640.jpg" class="card-img-top" alt="Product 1">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Vanilla caramel cheesecake with salted crust</h5>
-                                        <p class="card-text">Delicate cheesecake with vanilla cream, sweet caramel and crispy salted base</p>
-                                        <button class="btn btn-custom">add to bag</button>
+                        @foreach($products as $product)
+                            @php
+                                $image = $product->images->first();
+                                $base64 = null;
+                                $mimeType = "image/jpg";
+                                if ($image && $image->image_data) {
+                                    $base64 = $image->image_data;
+
+                                    $imageData = base64_decode($base64);
+                                    $finfo = finfo_open(FILEINFO_MIME_TYPE);
+                                    $mimeType = finfo_buffer($finfo, $imageData);
+                                    finfo_close($finfo);
+                                }
+                            @endphp
+                            <div class="col">
+                                <a href="{{ route('product.show', $product->id) }}" class="text-decoration-none">
+                                    <div class="card h-100">
+                                        @if($base64)
+                                            <img src="data:{{ $mimeType }};base64,{{ $base64 }}" class="card-img-top" alt="{{ $product->name }}">
+                                        @else
+                                            <img src="{{ asset('images/placeholder.jpg') }}" class="card-img-top" alt="No image available">
+                                        @endif
+                                        <div class="card-body">
+                                            <h5 class="card-title">{{ $product->name }}</h5>
+                                            <p class="card-text">{{ Str::limit($product->description, 100) }}</p>
+                                            <button class="btn btn-custom">Add to bag</button>
+                                        </div>
                                     </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col">
-                            <a href="info-product-page.html" class="text-decoration-none">
-                                <div class="card h-100">
-                                    <img src="../images/homePage/popularProducts/cake-balls-4139982_640.jpg" class="card-img-top" alt="Product 2">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Strawberry cake</h5>
-                                        <p class="card-text">Juicy coconut sweets with a rich tropical flavor.</p>
-                                        <button class="btn btn-custom">add to bag</button>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col">
-                            <a href="info-product-page.html" class="text-decoration-none">
-                                <div class="card h-100">
-                                    <img src="../images/homePage/popularProducts/christmas-3865695_640.jpg" class="card-img-top" alt="Product 3">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Coconut sweets</h5>
-                                        <p class="card-text">Juicy coconut sweets with a rich tropical flavor.</p>
-                                        <button class="btn btn-custom">add to bag</button>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col">
-                            <a href="info-product-page.html" class="text-decoration-none">
-                                <div class="card h-100">
-                                    <img src="../images/homePage/popularProducts/hearts-7107147_640.jpg" class="card-img-top" alt="Product 4">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Honey gingerbread with milk</h5>
-                                        <p class="card-text">Light cake with fresh strawberries and airy cream</p>
-                                        <button class="btn btn-custom">add to bag</button>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col">
-                            <a href="info-product-page.html" class="text-decoration-none">
-                                <div class="card h-100">
-                                    <img src="../images/homePage/popularProducts/christmas-3865695_640.jpg" class="card-img-top" alt="Product 5">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Vanilla caramel cheesecake with salted crust</h5>
-                                        <p class="card-text">Juicy coconut sweets with a rich tropical flavor.</p>
-                                        <button class="btn btn-custom">add to bag</button>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col">
-                            <a href="info-product-page.html" class="text-decoration-none">
-                                <div class="card h-100">
-                                    <img src="../images/homePage/popularProducts/cookies-8394894_640.jpg" class="card-img-top" alt="Product 6">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Coconut sweets</h5>
-                                        <p class="card-text">Light cake with fresh strawberries and airy cream</p>
-                                        <button class="btn btn-custom">add to bag</button>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
+                                </a>
+                            </div>
+                        @endforeach
                     </div>
                 </div>
 
 
-                <nav aria-label="Page navigation" class="mt-4">
-                    <ul class="pagination justify-content-center">
-                        <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Previous">
-                                <span aria-hidden="true">«</span>
-                            </a>
-                        </li>
-                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item disabled"><a class="page-link" href="#">...</a></li>
-                        <li class="page-item"><a class="page-link" href="#">10</a></li>
-                        <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Next">
-                                <span aria-hidden="true">»</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-        </div>
+
+                <div class="mt-4 d-flex justify-content-center">
+                    {{ $products->links() }}
+                </div>
 
 
 @endsection
