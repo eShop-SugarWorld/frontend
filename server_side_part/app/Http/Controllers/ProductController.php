@@ -10,47 +10,33 @@ use App\Models\Image;
 
 class ProductController extends Controller
 {
-    public function store(Request $request)
+
+    public function searchResults(Request $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|string',
-            'description' => 'nullable|string',
-            'price' => 'required|numeric',
-            'categories' => 'required|array',
-            'ingredients' => 'required|array',
-            'images.*' => 'image|mimes:jpeg,png,jpg|max:2048',
-        ]);
+        $query = Product::with('images');
 
-        $product = Product::create([
-            'name' => $validated['name'],
-            'description' => $validated['description'] ?? '',
-            'price' => $validated['price'],
-        ]);
-
-        $product->categories()->attach($validated['categories']);
-        $product->ingredients()->attach($validated['ingredients']);
-
-        if ($request->hasFile('images')) {
-            foreach ($request->file('images') as $uploadedImage) {
-                $imageData = file_get_contents($uploadedImage->getRealPath());
-
-                $image = new Image([
-                    'product_id' => $product->id,
-                    'image_data' => base64_encode($imageData),
-                ]);
-
-                $image->save();
-            }
+        if ($request->filled('sortPrice')) {
+            $sort = $request->input('sortPrice') === 'desc' ? 'desc' : 'asc';
+            $query->orderBy('price', $sort);
         }
 
-        return redirect()->route('product.show', $product->id)->with('success', 'Product created!');
-    }
+        if ($request->filled('sweet_type')) {
+            $query->whereHas('categories', function ($q) use ($request) {
+                $q->whereIn('name', $request->input('sweet_type'));
+            });
+        }
+        if ($request->filled('event_type')) {
+            $query->whereHas('categories', function ($q) use ($request) {
+                $q->whereIn('name', $request->input('event_type'));
+            });
+        }
+        if ($request->filled('minPrice') && $request->filled('maxPrice')) {
+            $query->whereBetween('price', [$request->minPrice, $request->maxPrice]);
+        }
 
-    public function searchResults()
-    {
-//        $products = Product::with('images')->get();  // Отримуємо продукти з їх зображеннями
-        $products = Product::with('images')->paginate(6);
-        return view('search-results', compact('products'));  // Передаємо продукти в view
+        $products = $query->paginate(6)->appends($request->all());
+
+        return view('search-results', compact('products'));
     }
     public function show($id)
     {

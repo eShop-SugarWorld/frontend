@@ -13,64 +13,62 @@
                 <div class="col-lg-3 col-md-4 col-12 mb-4">
                     <div class="filters p-4 rounded">
                         <h3 class="mb-4">Filters</h3>
-                        <div class="filter-section mb-4">
-                            <h5>Rearrangement of products</h5>
-                            <select class="form-select" aria-label="Sort products">
-                                <option selected>Low price</option>
-                                <option>High price</option>
-                            </select>
-                        </div>
-                        <div class="filter-section mb-4">
-                            <h5>Type of sweets</h5>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="filter1-option1">
-                                <label class="form-check-label" for="filter1-option1">Chocolate</label>
+                        <form method="GET" id="filtersForm">
+                            {{-- Сортування --}}
+                            <div class="filter-section mb-4">
+                                <h5>Rearrangement of products</h5>
+                                <select class="form-select" aria-label="Sort products" id="sortPrice" name="sortPrice" onchange="this.form.submit()">
+                                    <option value="asc" {{ request('sortPrice', 'asc') === 'asc' ? 'selected' : '' }}>Low price</option>
+                                    <option value="desc" {{ request('sortPrice') === 'desc' ? 'selected' : '' }}>High price</option>
+                                </select>
                             </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="filter1-option2">
-                                <label class="form-check-label" for="filter1-option2">Marmalade</label>
+
+                            {{-- Фільтр по типу солодощів --}}
+                            <div class="filter-section mb-4">
+                                <h5>Type of sweets</h5>
+                                @foreach (['Chocolate', 'Marmalade', 'Biscuits'] as $sweet)
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="{{ $sweet }}" id="filter-{{ strtolower($sweet) }}"
+                                               name="sweet_type[]"
+                                               {{ in_array($sweet, request('sweet_type', [])) ? 'checked' : '' }}
+                                               onchange="this.form.submit()">
+                                        <label class="form-check-label" for="filter-{{ strtolower($sweet) }}">{{ $sweet }}</label>
+                                    </div>
+                                @endforeach
                             </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="filter1-option3">
-                                <label class="form-check-label" for="filter1-option3"> Biscuits</label>
+                            <div class="filter-section mb-4">
+                                <h5>Celebration event</h5>
+                                @foreach (['Date','Wedding','Birthday party'] as  $label)
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="{{ $label }}" id="event-{{ strtolower($label) }}"
+                                               name="event_type[]"
+                                               {{ in_array($label, request('event_type', [])) ? 'checked' : '' }}
+                                               onchange="this.form.submit()">
+                                        <label class="form-check-label" for="event-{{ strtolower($label) }}">{{ $label }}</label>
+                                    </div>
+                                @endforeach
                             </div>
-                        </div>
-    <!--                    <div class="filter-section mb-4">-->
-    <!--                        <h5>Price</h5>-->
-    <!--                        <input type="range" class="form-range" min="10" max="1000" value="500" id="priceRange">-->
-    <!--                        <div class="d-flex justify-content-between">-->
-    <!--                            <span>10$</span>-->
-    <!--                            <span>1000$</span>-->
-    <!--                        </div>-->
-    <!--                    </div>-->
-                        <div class="filter-section mb-4">
-                            <h5>Price</h5>
-                            <div id="priceRange" class="mb-2"></div>
-                            <div class="d-flex justify-content-between">
-                                <span id="minPrice">$0</span>
-                                <span id="maxPrice">$150</span>
+
+                            <div class="filter-section mb-4">
+                                <h5>Price</h5>
+                                <div id="priceRange" class="mb-2"></div>
+                                <div class="d-flex justify-content-between">
+                                    <span id="minPrice">$0</span>
+                                    <span id="maxPrice">$150</span>
+                                </div>
+                                <input type="hidden" id="minPriceInput" name="minPrice" value="{{ request('minPrice', 0) }}">
+                                <input type="hidden" id="maxPriceInput" name="maxPrice" value="{{ request('maxPrice', 150) }}">
                             </div>
-                        </div>
-                        <div class="filter-section">
-                            <h5>Celebration event</h5>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="filter2-option1">
-                                <label class="form-check-label" for="filter2-option1">Date</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="filter2-option2">
-                                <label class="form-check-label" for="filter2-option2">Wedding</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="filter2-option3">
-                                <label class="form-check-label" for="filter2-option3">Birthday party </label>
-                            </div>
-                        </div>
+                        </form>
+
+
+
                     </div>
                 </div>
 
                 <div class="col-lg-9 col-md-8 col-12">
-                    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
+                    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4" id="products-container">
+{{--                        @include('partials.products')--}}
                         @foreach($products as $product)
                             @php
                                 $image = $product->images->first();
@@ -96,6 +94,7 @@
                                         <div class="card-body">
                                             <h5 class="card-title">{{ $product->name }}</h5>
                                             <p class="card-text">{{ Str::limit($product->description, 100) }}</p>
+                                            <p class="card-text data-price">{{ $product->price }} $</p>
                                             <button class="btn btn-custom">Add to bag</button>
                                         </div>
                                     </div>
@@ -109,6 +108,7 @@
 
                 <div class="mt-4 d-flex justify-content-center">
                     {{ $products->links() }}
+{{--                    {{ $products->appends(request()->query())->links() }}--}}
                 </div>
 
 
@@ -118,48 +118,39 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.7.1/nouislider.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            var slider = document.getElementById('priceRange');
-            var minPrice = document.getElementById('minPrice');
-            var maxPrice = document.getElementById('maxPrice');
+            const priceSlider = document.getElementById('priceRange');
+            const minPriceInput = document.getElementById('minPriceInput');
+            const maxPriceInput = document.getElementById('maxPriceInput');
+            const minPriceDisplay = document.getElementById('minPrice');
+            const maxPriceDisplay = document.getElementById('maxPrice');
 
-            noUiSlider.create(slider, {
-                start: [0, 150],
+            const startMin = parseInt(minPriceInput.value) || 0;
+            const startMax = parseInt(maxPriceInput.value) || 150;
+
+            noUiSlider.create(priceSlider, {
+                start: [startMin, startMax],
                 connect: true,
+                step: 1,
                 range: {
                     'min': 0,
                     'max': 150
-                },
-                step: 5,
-                tooltips: false, // Disable tooltips
-                margin: 10,
-                format: {
-                    to: function (value) {
-                        return '$' + Math.round(value);
-                    },
-                    from: function (value) {
-                        return Number(value.replace('$', ''));
-                    }
                 }
             });
 
-            slider.noUiSlider.on('update', function (values, handle) {
-                minPrice.textContent = values[0];
-                maxPrice.textContent = values[1];
+            priceSlider.noUiSlider.on('update', function (values, handle) {
+                const min = Math.round(values[0]);
+                const max = Math.round(values[1]);
 
-                // filterProducts(values[0].replace('$', ''), values[1].replace('$', ''));
+                minPriceDisplay.textContent = `$${min}`;
+                maxPriceDisplay.textContent = `$${max}`;
+
+                minPriceInput.value = min;
+                maxPriceInput.value = max;
             });
 
-            // function filterProducts(minPrice, maxPrice) {
-            //
-            //     document.querySelectorAll('.card').forEach(function (card) {
-            //         var price = parseFloat(card.getAttribute('data-price')); // Add data-price to your cards
-            //         if (price >= minPrice && price <= maxPrice) {
-            //             card.parentElement.style.display = 'block';
-            //         } else {
-            //             card.parentElement.style.display = 'none';
-            //         }
-            //     });
-            // }
+            priceSlider.noUiSlider.on('change', function () {
+                document.getElementById('filtersForm').submit();
+            });
         });
     </script>
 @endsection
