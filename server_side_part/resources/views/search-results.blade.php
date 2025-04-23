@@ -14,6 +14,8 @@
                     <div class="filters p-4 rounded">
                         <h3 class="mb-4">Filters</h3>
                         <form method="GET" id="filtersForm">
+                            <input type="hidden" name="query" value="{{ request('query') }}">
+
                             {{-- Сортування --}}
                             <div class="filter-section mb-4">
                                 <h5>Rearrangement of products</h5>

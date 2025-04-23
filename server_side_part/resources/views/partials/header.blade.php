@@ -18,10 +18,6 @@
                         </li>
                         <li class="nav-item">
                             <a href="#" class="nav-link" onclick="logout(event)">Log out</a>
-{{--                            <form action="{{ route('logout') }}" method="POST" style="display: inline;">--}}
-{{--                                @csrf--}}
-{{--                                <button type="submit" class="nav-link btn btn-link" style="cursor: pointer;">Log out</button>--}}
-{{--                            </form>--}}
                         </li>
                     @else
                         <li class="nav-item">
@@ -38,6 +34,15 @@
 <div class="containerS">
     <form class="d-flex panelSearch" method="GET" action="{{ route('search.results') }}">
         <input class="form-control" type="search" name="query" id="searchInput" placeholder="Search" value="{{ request('query') }}">
+        @foreach(request()->except('query') as $name => $value)
+            @if(is_array($value))
+                @foreach($value as $item)
+                    <input type="hidden" name="{{ $name }}[]" value="{{ $item }}">
+                @endforeach
+            @else
+                <input type="hidden" name="{{ $name }}" value="{{ $value }}">
+            @endif
+        @endforeach
         <button class="btn" type="submit" id="searchButton">Search</button>
     </form>
 </div>
