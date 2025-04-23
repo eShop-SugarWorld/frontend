@@ -6,8 +6,9 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\Ingredient;
+use App\Models\Cart;
 use App\Models\Image;
-
+use Illuminate\Support\Facades\Auth;
 class ProductController extends Controller
 {
     public function store(Request $request)
@@ -43,19 +44,61 @@ class ProductController extends Controller
             }
         }
 
-        return redirect()->route('product.show', $product->id)->with('success', 'Product created!');
+        return redirect()->route('detail-of-product', $product->id)->with('success', 'Product created!');
     }
 
     public function searchResults()
     {
-//        $products = Product::with('images')->get();  // Отримуємо продукти з їх зображеннями
+        //$products = Product::with('images')->get();  // Отримуємо продукти з їх зображеннями
         $products = Product::with('images')->paginate(6);
         return view('search-results', compact('products'));  // Передаємо продукти в view
     }
     public function show($id)
     {
         $product = Product::with('images')->findOrFail($id);
-        return view('product.show', compact('product'));
+        $recommendedProducts = $this->getRandomRecommendedProducts($id); // Передаємо $id, щоб виключити поточний продукт
+        return view('detail-of-product', compact('product', 'recommendedProducts'));
     }
+    protected function getRandomRecommendedProducts($excludeId = null)
+    {
+        $query = Product::with('images')->inRandomOrder();
+        
+        if ($excludeId) {
+            $query->where('id', '!=', $excludeId); 
+        }
 
+        return $query->take(3)->get();
+    }
+    public function addToCart(Request $request, $productId)
+    {
+        $quantity = $request->input('quantity', 1); 
+
+        if (Auth::check()) {
+            $user = Auth::user();
+            $cartItem = Cart::where('user_id', $user->id)
+                            ->where('product_id', $productId)
+                            ->first();
+
+            if ($cartItem) {
+                $cartItem->quantity += $quantity;
+                $cartItem->save();
+            } else {
+                Cart::create([
+                    'user_id' => $user->id,
+                    'product_id' => $productId,
+                    'quantity' => $quantity,
+                ]);
+            }
+        } else {
+            $cart = session()->get('cart', []); 
+            if (isset($cart[$productId])) {
+                $cart[$productId] += $quantity;
+            } else {
+                $cart[$productId] = $quantity;
+            }
+            session()->put('cart', $cart);
+        }
+
+        return redirect()->back()->with('success', 'Product added to cart!');
+    }
 }

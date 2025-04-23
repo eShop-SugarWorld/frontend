@@ -33,6 +33,10 @@ class User extends Authenticatable
     {
         return $this->hasOne(UserInfo::class, 'id', 'user_id');
     }
+    public function cartItems()
+    {
+        return $this->hasMany(Cart::class);
+    }
 
 //    /**
 //     * The attributes that should be cast.

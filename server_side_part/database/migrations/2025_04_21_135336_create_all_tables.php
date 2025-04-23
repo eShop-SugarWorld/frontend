@@ -1,6 +1,5 @@
 <?php
 
-
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -8,7 +7,7 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration {
     public function up(): void
     {
-        // User_info
+        
         Schema::create('user_info', function (Blueprint $table) {
             $table->id();
             $table->string('first_name');
@@ -17,7 +16,7 @@ return new class extends Migration {
             $table->timestamps();
         });
 
-        // User_auth
+        
         Schema::create('user_auth', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id')->unique();
@@ -28,7 +27,7 @@ return new class extends Migration {
             $table->foreign('user_id')->references('id')->on('user_info')->onDelete('cascade');
         });
 
-        // Promo_Codes
+        
         Schema::create('promo_codes', function (Blueprint $table) {
             $table->id();
             $table->string('code');
@@ -37,7 +36,7 @@ return new class extends Migration {
             $table->timestamps();
         });
 
-        // Shipping_address
+        
         Schema::create('shipping_address', function (Blueprint $table) {
             $table->id();
             $table->string('country');
@@ -48,7 +47,7 @@ return new class extends Migration {
             $table->timestamps();
         });
 
-        // Order
+        
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
@@ -63,7 +62,7 @@ return new class extends Migration {
             $table->foreign('ship_adr_id')->references('id')->on('shipping_address')->onDelete('cascade');
         });
 
-        // Product
+        
         Schema::create('product', function (Blueprint $table) {
             $table->id();
             $table->string('name');
@@ -72,7 +71,7 @@ return new class extends Migration {
             $table->timestamps();
         });
 
-        // Order_item
+        
         Schema::create('order_item', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('order_id');
@@ -83,33 +82,32 @@ return new class extends Migration {
             $table->foreign('product_id')->references('id')->on('product')->onDelete('cascade');
         });
 
-        // Categories
+        
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->timestamps();
         });
 
-        // Categories_product
+        
         Schema::create('categories_product', function (Blueprint $table) {
             $table->unsignedBigInteger('category_id');
             $table->unsignedBigInteger('product_id');
 
             $table->primary(['category_id', 'product_id']);
 
-
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->foreign('product_id')->references('id')->on('product')->onDelete('cascade');
         });
 
-        // Ingredients
+        
         Schema::create('ingredients', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->timestamps();
         });
 
-        // Product_Ingredients
+        
         Schema::create('product_ingredients', function (Blueprint $table) {
             $table->unsignedBigInteger('product_id');
             $table->unsignedBigInteger('ingredient_id');
@@ -120,20 +118,32 @@ return new class extends Migration {
             $table->foreign('ingredient_id')->references('id')->on('ingredients')->onDelete('cascade');
         });
 
-        // Images
+        
         Schema::create('images', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('product_id');
-//            $table->binary('image_data');
             $table->text('image_data');
             $table->timestamps();
 
+            $table->foreign('product_id')->references('id')->on('product')->onDelete('cascade');
+        });
+
+        
+        Schema::create('carts', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('user_id'); 
+            $table->unsignedBigInteger('product_id');
+            $table->integer('quantity')->default(1);
+            $table->timestamps();
+        
+            $table->foreign('user_id')->references('id')->on('user_info')->onDelete('cascade');
             $table->foreign('product_id')->references('id')->on('product')->onDelete('cascade');
         });
     }
 
     public function down(): void
     {
+        Schema::dropIfExists('carts'); 
         Schema::dropIfExists('images');
         Schema::dropIfExists('product_ingredients');
         Schema::dropIfExists('ingredients');
@@ -148,4 +158,3 @@ return new class extends Migration {
         Schema::dropIfExists('user_info');
     }
 };
-

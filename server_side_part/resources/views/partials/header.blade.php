@@ -28,7 +28,7 @@
                             <a class="nav-link" href="{{ route('login') }}">Account</a>
                         </li>
                     @endauth
-                    <li class="nav-item"><a class="nav-link" href="cart-page.html">Cart</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('cart') }}">Cart</a></li>
 
                 </ul>
             </div>
