@@ -11,47 +11,45 @@ use App\Models\Image;
 use Illuminate\Support\Facades\Auth;
 class ProductController extends Controller
 {
-    public function store(Request $request)
+
+    public function searchResults(Request $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|string',
-            'description' => 'nullable|string',
-            'price' => 'required|numeric',
-            'categories' => 'required|array',
-            'ingredients' => 'required|array',
-            'images.*' => 'image|mimes:jpeg,png,jpg|max:2048',
-        ]);
+        $query = Product::with('images');
 
-        $product = Product::create([
-            'name' => $validated['name'],
-            'description' => $validated['description'] ?? '',
-            'price' => $validated['price'],
-        ]);
-
-        $product->categories()->attach($validated['categories']);
-        $product->ingredients()->attach($validated['ingredients']);
-
-        if ($request->hasFile('images')) {
-            foreach ($request->file('images') as $uploadedImage) {
-                $imageData = file_get_contents($uploadedImage->getRealPath());
-
-                $image = new Image([
-                    'product_id' => $product->id,
-                    'image_data' => base64_encode($imageData),
-                ]);
-
-                $image->save();
-            }
+        if ($request->filled('query')) {
+            $search = strtolower($request->input('query'));
+            $query->where(function ($q) use ($search) {
+                $q->whereRaw('LOWER(name) LIKE ?', ["%{$search}%"])
+                    ->orWhereRaw('LOWER(description) LIKE ?', ["%{$search}%"]);
+            });
         }
 
-        return redirect()->route('detail-of-product', $product->id)->with('success', 'Product created!');
-    }
 
-    public function searchResults()
-    {
-        //$products = Product::with('images')->get();  // Отримуємо продукти з їх зображеннями
-        $products = Product::with('images')->paginate(6);
-        return view('search-results', compact('products'));  // Передаємо продукти в view
+    
+
+        if ($request->filled('sortPrice')) {
+            $sort = $request->input('sortPrice') === 'desc' ? 'desc' : 'asc';
+            $query->orderBy('price', $sort);
+        }
+
+        if ($request->filled('sweet_type')) {
+            $query->whereHas('categories', function ($q) use ($request) {
+                $q->whereIn('name', $request->input('sweet_type'));
+            });
+        }
+        if ($request->filled('event_type')) {
+            $query->whereHas('categories', function ($q) use ($request) {
+                $q->whereIn('name', $request->input('event_type'));
+            });
+        }
+        if ($request->filled('minPrice') && $request->filled('maxPrice')) {
+            $query->whereBetween('price', [$request->minPrice, $request->maxPrice]);
+        }
+
+        $products = $query->paginate(6)->appends($request->all());
+
+        return view('search-results', compact('products'));
+
     }
     public function show($id)
     {
