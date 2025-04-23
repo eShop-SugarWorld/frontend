@@ -69,7 +69,7 @@
                 <div class="col-lg-9 col-md-8 col-12">
                     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4" id="products-container">
 {{--                        @include('partials.products')--}}
-                        @foreach($products as $product)
+                        @forelse($products as $product)
                             @php
                                 $image = $product->images->first();
                                 $base64 = null;
@@ -100,7 +100,11 @@
                                     </div>
                                 </a>
                             </div>
-                        @endforeach
+                        @empty
+                            <div class="text-center w-100">
+                                <img src="{{ asset('images/product_not_find.jpeg') }}" alt="Not found" class="img-fluid" style="max-width: 400px; margin-top: 80px;border-radius: 15px; ">
+                            </div>
+                        @endforelse
                     </div>
                 </div>
 

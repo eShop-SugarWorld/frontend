@@ -15,6 +15,14 @@ class ProductController extends Controller
     {
         $query = Product::with('images');
 
+        if ($request->filled('query')) {
+            $search = strtolower($request->input('query'));
+            $query->where(function ($q) use ($search) {
+                $q->whereRaw('LOWER(name) LIKE ?', ["%{$search}%"])
+                    ->orWhereRaw('LOWER(description) LIKE ?', ["%{$search}%"]);
+            });
+        }
+
         if ($request->filled('sortPrice')) {
             $sort = $request->input('sortPrice') === 'desc' ? 'desc' : 'asc';
             $query->orderBy('price', $sort);

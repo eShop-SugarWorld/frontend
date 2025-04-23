@@ -36,26 +36,26 @@
     </nav>
 </header>
 <div class="containerS">
-    <div class="d-flex panelSearch">
-        <input class="form-control" type="search" id="searchInput" placeholder="Search" aria-label="Search">
-        <button class="btn" type="button" id="searchButton" onclick="window.location.href='{{ route('search.results') }}'">Search</button>
-    </div>
+    <form class="d-flex panelSearch" method="GET" action="{{ route('search.results') }}">
+        <input class="form-control" type="search" name="query" id="searchInput" placeholder="Search" value="{{ request('query') }}">
+        <button class="btn" type="submit" id="searchButton">Search</button>
+    </form>
 </div>
 
 <div class="category-section">
     <div class="container category-container">
         <div class="row g-4 categories">
             <div class="col-6 col-md-3">
-                <button class="category-btn" onclick="window.location.href='{{ route('search.results') }}'">NEW ARRIVALS</button>
+                <button class="category-btn" onclick="window.location.href='{{ route('search.results') }}?sweet_type[]=Chocolate'">Chocolate</button>
             </div>
             <div class="col-6 col-md-3">
-                <button class="category-btn" onclick="window.location.href='{{ route('search.results') }}'">SHOP CANDY</button>
+                <button class="category-btn" onclick="window.location.href='{{ route('search.results') }}?sweet_type[]=Marmalade'">Marmalade</button>
             </div>
             <div class="col-6 col-md-3">
-                <button class="category-btn" onclick="window.location.href='{{ route('search.results') }}'">SHOP GIFTS</button>
+                <button class="category-btn" onclick="window.location.href='{{ route('search.results') }}?sweet_type[]=Biscuits'">Biscuits</button>
             </div>
             <div class="col-6 col-md-3">
-                <button class="category-btn" onclick="window.location.href='{{ route('search.results') }}'">GIFT CONCIERGE</button>
+                <button class="category-btn" onclick="window.location.href='{{ route('search.results') }}?event_type[]=Birthday party'">Birthday party</button>
             </div>
         </div>
     </div>
