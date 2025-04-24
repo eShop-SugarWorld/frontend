@@ -6,7 +6,11 @@
     margin-top: 50px;
 }
 
-
+.alert-success {
+    margin-bottom: 15px;
+    padding: 10px;
+    font-size: 0.9rem;
+}
 .left-panel {
     background-color: #C6E6E3;
     border-right: 2px solid #FFD3DD;

@@ -97,6 +97,7 @@ class ProductController extends Controller
             session()->put('cart', $cart);
         }
 
-        return redirect()->back()->with('success', 'Product added to cart!');
+        return redirect()->route('detail-of-product', $productId)
+                         ->with('success', 'Product added to cart successfully!');
     }
 }

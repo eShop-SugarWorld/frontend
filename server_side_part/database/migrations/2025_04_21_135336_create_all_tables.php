@@ -50,16 +50,21 @@ return new class extends Migration {
         
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->dateTime('created_at');
+            $table->unsignedBigInteger('user_id')->nullable(); 
+            $table->string('first_name'); 
+            $table->string('last_name'); 
+            $table->string('email'); 
+            $table->string('phone'); 
             $table->unsignedBigInteger('promocode_id')->unique()->nullable();
-            $table->unsignedBigInteger('ship_adr_id');
-            $table->enum('shipping_method', ['standard', 'express']);
-            $table->enum('payment_method', ['card', 'cash', 'paypal']);
-
+            $table->unsignedBigInteger('ship_adr_id')->nullable(); 
+            $table->enum('shipping_method', ['standard', 'express', 'pickup']);
+            $table->enum('payment_method', ['card', 'cash']);
+            $table->string('status')->default('pending'); 
+            $table->timestamps(); 
+        
             $table->foreign('user_id')->references('id')->on('user_info')->onDelete('cascade');
             $table->foreign('promocode_id')->references('id')->on('promo_codes')->nullOnDelete();
-            $table->foreign('ship_adr_id')->references('id')->on('shipping_address')->onDelete('cascade');
+            $table->foreign('ship_adr_id')->references('id')->on('shipping_address')->onDelete('set null');
         });
 
         
@@ -77,6 +82,8 @@ return new class extends Migration {
             $table->unsignedBigInteger('order_id');
             $table->unsignedBigInteger('product_id');
             $table->integer('quantity');
+            $table->decimal('price', 10, 2);
+            $table->timestamps();
 
             $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
             $table->foreign('product_id')->references('id')->on('product')->onDelete('cascade');

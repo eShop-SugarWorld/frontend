@@ -66,7 +66,7 @@
                 <h3 class="mb-4">Order Summary</h3>
                 <div class="mb-3">
                     <p class="d-flex justify-content-between"><span>Subtotal:</span> <span>${{ number_format($subtotal, 2) }}</span></p>
-                    <p class="d-flex justify-content-between"><span>Shipping:</span> <span>${{ number_format($shipping, 2) }}</span></p>
+                    <p class="d-flex justify-content-between"><span>Shipping:</span> <span id="shippingPrice">${{ number_format($shipping, 2) }}</span></p>
                     <p class="d-flex justify-content-between"><span>Tax:</span> <span>${{ number_format($tax, 2) }}</span></p>
                 </div>
                 <div class="mb-3">
@@ -79,31 +79,41 @@
                 <div class="mb-3">
                     <label for="shippingMethod" class="form-label">Shipping Method</label>
                     <select class="form-select" id="shippingMethod">
-                        <option value="5.00" selected>Standard Shipping ($5.00)</option>
-                        <option value="10.00">Express Shipping ($10.00)</option>
-                        <option value="0.00">Pickup (Free)</option>
+                        <option value="standard" {{ $shippingMethod == 'standard' ? 'selected' : '' }}>Standard Shipping ($5.00)</option>
+                        <option value="express" {{ $shippingMethod == 'express' ? 'selected' : '' }}>Express Shipping ($10.00)</option>
+                        <option value="pickup" {{ $shippingMethod == 'pickup' ? 'selected' : '' }}>Pickup (Free)</option>
                     </select>
                 </div>
                 <p class="d-flex justify-content-between fw-bold"><span>Total:</span> <span id="totalPrice">${{ number_format($total, 2) }}</span></p>
-                <a href="{{ route('checkout') }}" class="btn btn-custom w-100">Proceed to Checkout</a>
+                <a href="{{ route('checkout') }}?shipping_method={{ $shippingMethod }}" class="btn btn-custom w-100" id="proceed-to-checkout">Proceed to Checkout</a>
             </div>
         </div>
     </div>
 </div>
-
-
-
 @endsection
 
 @section('scripts')
 <script>
-    // Оновлення загальної суми при зміні методу доставки
     document.getElementById('shippingMethod').addEventListener('change', function () {
+        const shippingMethod = this.value;
+
+        // Оновлюємо загальну суму
+        const shippingPrices = {
+            'standard': 5.00,
+            'express': 10.00,
+            'pickup': 0.00
+        };
+        const shipping = shippingPrices[shippingMethod];
         const subtotal = {{ $subtotal }};
         const tax = {{ $tax }};
-        const shipping = parseFloat(this.value);
         const total = subtotal + tax + shipping;
+
+        document.getElementById('shippingPrice').textContent = `$${shipping.toFixed(2)}`;
         document.getElementById('totalPrice').textContent = `$${total.toFixed(2)}`;
+
+        // Оновлюємо href для кнопки "Proceed to Checkout"
+        const checkoutLink = document.getElementById('proceed-to-checkout');
+        checkoutLink.href = '{{ route('checkout') }}?shipping_method=' + shippingMethod;
     });
 </script>
 @endsection

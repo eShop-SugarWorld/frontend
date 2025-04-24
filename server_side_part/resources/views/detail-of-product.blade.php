@@ -37,6 +37,12 @@
         <div class="col-lg-3 col-md-4 col-12 right-panel">
             <div class="content p-4">
                 <h3 class="mb-4">{{ $product->name}}</h3>
+                @if (session('success'))
+                    <div class="alert alert-success form-label" role="alert">
+                        {{ session('success') }}
+                        <a href="{{ route('cart') }}" class="btn btn-custom  ms-2">Go to Cart</a>
+                    </div>
+                @endif
                 <form action="{{ route('cart.add', $product->id) }}" method="POST">
                     @csrf
                     <div class="mb-3">
@@ -45,6 +51,7 @@
                     </div>
                     <button type="submit" class="btn btn-custom w-100 mb-3">Add to Cart</button>
                 </form>
+                
 
                 <h5>Price: ${{ number_format($product->price, 2) }}</h5>
                 <h5 class="mt-4">Ingredients</h5>

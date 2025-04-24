@@ -1,0 +1,251 @@
+.checkout-section {
+    background-color: #C6E6E3;
+    border: 2px solid #FFD3DD;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+.checkout-section h3 {
+    color: #81BFB7;
+    font-size: 24px;
+}
+.form-label {
+    color: #81BFB7;
+}
+.form-control {
+    border: 2px solid #FFD3DD;
+    background-color: #F0F9F8;
+    color: #F3A2BE;
+}
+.form-control::placeholder {
+    color: #F3A2BE;
+    opacity: 1;
+}
+.form-check-label {
+    color: #81BFB7;
+}
+.form-check-input:checked {
+    background-color: #F3A2BE;
+    border-color: #F3A2BE;
+}
+.btn-custom {
+    background-color: #F3A2BE;
+    color: #F0F9F8;
+    border: 2px solid #FFD3DD;
+    border-radius: 5px;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.btn-custom:hover {
+    background-color: #FFD3DD;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+
+.info-section {
+    background-color: #C6E6E3;
+    border: 2px solid #FFD3DD;
+    border-radius: 10px;
+    height: 100%;
+}
+.info-section h3 {
+    color: #81BFB7;
+    font-size: 24px;
+}
+.info-placeholder {
+    background-color: #F0F9F8;
+    height: 300px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+footer {
+    background-color: #81BFB7;
+}
+footer a,
+footer p {
+    color: #F0F9F8;
+}
+footer a:hover {
+    color: #F3A2BE;
+}
+.popup {
+    background-color: #FFD3DD;
+    color: #333;
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+    max-height: 35px;
+}
+.contact-item:hover .popup {
+    display: block;
+}
+.contact-item {
+    position: relative;
+}
+
+
+@media (max-width: 991px) {
+    .info-section {
+        margin-top: 20px;
+    }
+    .info-placeholder {
+        height: 200px;
+    }
+}
+@media (max-width: 767px) {
+    .checkout-section {
+        padding: 15px;
+    }
+    .checkout-section h3 {
+        font-size: 20px;
+    }
+    .info-section h3 {
+        font-size: 20px;
+    }
+    .info-placeholder {
+        height: 150px;
+    }
+    .btn-custom {
+        font-size: 14px;
+        padding: 8px;
+    }
+}
+@media (max-width: 576px) {
+    .checkout-section h3 {
+        font-size: 18px;
+    }
+    .info-section h3 {
+        font-size: 18px;
+    }
+    .info-placeholder {
+        height: 100px;
+    }
+}
+
+.info-section {
+    background-color: #C6E6E3;
+    border: 2px solid #FFD3DD;
+    border-radius: 10px;
+    height: 100%;
+}
+.info-section h3 {
+    color: #81BFB7;
+    font-size: 24px;
+}
+.info-section h4 {
+    color: #81BFB7;
+    font-size: 20px;
+}
+.order-summary {
+    background-color: #F0F9F8;
+    padding: 15px;
+    border-radius: 10px;
+}
+.order-item {
+    border-bottom: 1px solid #FFD3DD;
+    padding-bottom: 10px;
+}
+.order-item-img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 5px;
+    border: 2px solid #FFD3DD;
+}
+.item-name {
+    color: #81BFB7;
+    font-weight: bold;
+}
+.item-price {
+    color: #81BFB7;
+    font-weight: bold;
+}
+.summary-details p {
+    color: #333;
+}
+.summary-details h5 {
+    color: #81BFB7;
+}
+.summary-details hr {
+    border-color: #FFD3DD;
+}
+.form-label {
+    color: #81BFB7;
+}
+.form-control {
+    border: 2px solid #FFD3DD;
+    background-color: #F0F9F8;
+    color: #F3A2BE;
+}
+.form-control::placeholder {
+    color: #F3A2BE;
+    opacity: 1;
+}
+.btn-custom {
+    background-color: #F3A2BE;
+    color: #F0F9F8 !important;
+    border: 2px solid #FFD3DD;
+    border-radius: 5px;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.btn-custom:hover {
+    background-color: #FFD3DD;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 991px) {
+   
+    .info-section {
+        margin-top: 20px;
+    }
+    .order-item-img {
+        width: 50px;
+        height: 50px;
+    }
+}
+@media (max-width: 767px) {
+    
+    .info-section h3 {
+        font-size: 20px;
+    }
+    .info-section h4 {
+        font-size: 18px;
+    }
+    .order-item-img {
+        width: 40px;
+        height: 40px;
+    }
+    .btn-custom {
+        font-size: 14px;
+        padding: 8px;
+    }
+}
+.textHome {
+    position: fixed;
+    top: 0;
+    padding: 15px 0;
+    text-align: center;
+}
+@media (max-width: 576px) {
+    
+    .info-section h3 {
+        font-size: 18px;
+    }
+    .info-section h4 {
+        font-size: 16px;
+    }
+    .order-item-img {
+        width: 30px;
+        height: 30px;
+    }
+   
+}
