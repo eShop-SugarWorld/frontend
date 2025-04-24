@@ -5,6 +5,7 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CheckoutController;
 /*
 |--------------------------------------------------------------------------
@@ -36,9 +37,11 @@ Route::post('/registration', [RegisterController::class, 'store'])->name('regist
 Route::post('/login', [LoginController::class, 'login'])->name('login.submit');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
-Route::get('/profile', function () {
-    return view('profile-page');
-})->name('profile');
+Route::get('/profile', [ProfileController::class,'account'])->name('profile');
+Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
+Route::post('/profile/change-password', [ProfileController::class, 'changePassword'])->name('change.password');
+
+
 
 Route::get('/product/{id}', [ProductController::class, 'show'])->name('detail-of-product');
 

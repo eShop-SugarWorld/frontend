@@ -87,6 +87,11 @@
     font-family:  'brandon-grotesque',sans-serif;
     font-size: 20px;
 }
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
 body {
     font-family:  'brandon-grotesque',sans-serif;
     background-color: #F0F9F8;
@@ -195,6 +200,7 @@ body {
 }
 
 footer  {
+    margin-top: auto;
     background-color: #81BFB7;
 }
 

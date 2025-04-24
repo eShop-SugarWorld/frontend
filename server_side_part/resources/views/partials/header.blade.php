@@ -2,7 +2,7 @@
     <nav class="navbar navbar-expand-lg myNavbar">
         <div class="container d-flex justify-content-between align-items-center">
             <a class="navbar-brand d-flex align-items-center" href="#">
-                <img  src="{{ asset('images/homePage/logo.png') }}" alt="Logo" width="40" height="40" class="me-2 rounded">
+                <img  src="{{ asset('images/tralalelo.png') }}" alt="Logo" width="50" height="50" class="me-2 rounded">
             </a>
             <a href="{{ route('home') }}" class="position-absolute start-50 translate-middle-x text-decoration-none textHome">
                 <h1 class="fs-4 mb-0">World Sweets</h1>

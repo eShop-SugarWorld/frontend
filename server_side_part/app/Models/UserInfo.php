@@ -18,11 +18,15 @@ class UserInfo extends Model
         'id',
         'first_name',
         'last_name',
-        'country',
+        'phone_number',
     ];
 
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+    public function orders()
+    {
+        return $this->hasMany(Order::class, 'user_id');
     }
 }
