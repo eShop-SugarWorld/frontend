@@ -6,6 +6,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CheckoutController;
 /*
 |--------------------------------------------------------------------------
@@ -18,10 +19,8 @@ use App\Http\Controllers\CheckoutController;
 |
 */
 
-Route::get('/', function () {
-//    return view('welcome');
-    return view('home-page');
-})->name('home');
+
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/search', [ProductController::class, 'searchResults'])->name('search.results');
 

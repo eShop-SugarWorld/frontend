@@ -9,7 +9,9 @@
             <div class="card-body">
                 <h5 class="card-title">{{ $product->name }}</h5>
                 <p class="card-text">{{ Str::limit($product->description, 100) }}</p>
-                <p class="card-text data-price">{{ $product->price }} $</p>
+                @if(!isset($showPrice) || $showPrice)
+                    <p class="card-text data-price">{{ $product->price }} $</p>
+                @endif
                 <button class="btn btn-custom">Add to cart</button>
             </div>
         </div>
