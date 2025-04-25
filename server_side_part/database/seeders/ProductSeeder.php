@@ -13,24 +13,21 @@ class ProductSeeder extends Seeder
 {
     public function run(): void
     {
-        $this->createProduct('American pie', 'Common American apple pie.', 12.50, 'Biscuits', ['flour', 'milk', 'apple'], ['american-pie.jpg', 'biscuits.jpg']);
+        $this->createProduct('Choco Chunk Classics', 'Crunchy chocolate cookies loaded with gooey milk chocolate chunks.', 8.50, 'Biscuits', ['flour', 'milk chocolate', 'sugar', 'butter'], ['cookies1.jpg', 'cookies1.2.jpg']);
 
-        $this->createProduct('Grannys pies', 'Common Grannys pie.', 10.50, 'Biscuits', ['flour', 'milk', 'strawberry'], ['granny-pie.jpg', 'biscuits-christmas.jpg']);
+        $this->createProduct('Dark Cocoa Crispies', 'Deeply rich chocolate cookies with a crisp edge and a hint of sea salt.', 9.00, ['Biscuits', 'Birthday party'], ['flour', 'dark chocolate', 'cocoa powder', 'sea salt'], ['cookies2.jpg', 'cookies2.2.jpg']);
+        
+        $this->createProduct('Nutty Choco Rounds', 'Chewy chocolate cookies studded with roasted almonds and chocolate chips.', 10.00, 'Biscuits', ['flour', 'chocolate chips', 'almonds', 'brown sugar'], ['cookies3.jpg', 'cookies3.2.jpg']);
+        
+        $this->createProduct('Espresso Choco Bites', 'Bold chocolate cookies infused with espresso for a mocha-inspired delight.', 11.00, ['Biscuits', 'Birthday party'], ['flour', 'chocolate', 'espresso powder', 'sugar'], ['cookies4.jpg', 'cookies4.2.jpg']);
 
-        // Продукт "Chocolate pie"
-        $this->createProduct('Chocolate pie', 'Delicious chocolate pie.', 15.00, 'Chocolate', ['flour', 'chocolate', 'sugar'], ['biscuits.jpg', 'american-pie.jpg']);
+        $this->createProduct('Choco Cream Pockets', 'Soft chocolate cookies with a luscious dark chocolate ganache filling.', 15.00, ['Biscuits', 'Birthday party'], ['flour', 'cocoa powder', 'dark chocolate', 'cream'], ['biscuits5.jpg', 'bisquits5.2.jpg']);
 
-        // Продукт "Marmalade pie"
-        $this->createProduct('Marmalade pie', 'Sweet marmalade pie.', 14.00, 'Marmalade', ['flour', 'marmalade', 'sugar'], ['granny-pie.jpg', 'biscuits-christmas.jpg']);
+        $this->createProduct('Marmalade Choco Rounds', 'Round chocolate cookies with a sweet, tangy marmalade center.', 20.00, ['Marmalade', 'Wedding'], ['flour', 'chocolate', 'marmalade', 'sugar'], ['marmalade1.jpg', '']);
 
-        // Продукт "Biscuits pie"
-        $this->createProduct('Biscuits pie', 'Crispy biscuits pie.', 9.50, 'Biscuits', ['flour', 'butter', 'sugar'], ['biscuits-christmas.jpg', 'american-pie.jpg']);
 
-        // Продукт "Date pie"
-        $this->createProduct('Date pie', 'Tasty date pie.', 13.00, 'Date', ['flour', 'milk', 'sugar'], ['biscuits.jpg', 'granny-pie.jpg']);
 
-        // Продукт "Wedding cake"
-        $this->createProduct('Wedding cake', 'Elegant wedding cake.', 50.00, 'Wedding', ['flour', 'butter', 'sugar'], ['american-pie.jpg', 'biscuits-christmas.jpg']);
+        
 
         // Продукт "Birthday cake"
         $this->createProduct('Birthday cake', 'Colorful birthday cake.', 25.00, 'Birthday party', ['flour', 'butter', 'sugar', 'milk'], ['biscuits-christmas.jpg', 'biscuits.jpg']);
