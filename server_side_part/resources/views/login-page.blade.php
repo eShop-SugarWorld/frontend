@@ -15,25 +15,25 @@
                     <h2 class="text-center mb-4">Log In</h2>
                     <div class="row">
                         <div class="col-md-6 col-12 mb-4">
-                            <div class="form-container">
+                            <form method="POST" class="form-container" action="{{ route('login.submit') }}">
+                                @csrf
                                 <div class="mb-3">
                                     <label for="email" class="form-label">Email</label>
-                                    <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+                                    <input type="email" name="email" class="form-control" id="email" placeholder="Enter your email" required>
                                 </div>
                                 <div class="mb-3">
                                     <label for="password" class="form-label">Password</label>
-                                    <input type="password" class="form-control" id="password" placeholder="Enter your password" required>
+                                    <input type="password" name="password" class="form-control" id="password" placeholder="Enter your password" required>
                                 </div>
                                 <div class="mb-3 form-check">
                                     <input type="checkbox" class="form-check-input" id="rememberMe">
                                     <label class="form-check-label" for="rememberMe">Remember me</label>
                                 </div>
-{{--                                <a href="{{ route('home') }}" class="btn btn-custom w-100">Log in</a>--}}
-                                <button id="loginBtn" class="btn btn-custom w-100">Log in</button>
+                                <button type="submit"  class="btn btn-custom w-100">Log in</button>
                                 <div class="text-center mt-3">
                                     <small>Don't have an account? <a href="{{ route('registration') }}" class="text-decoration-none">Sign up here</a></small>
                                 </div>
-                            </div>
+                            </form>
                         </div>
                         <div class="col-md-6 col-12 d-flex align-items-center justify-content-center d-none d-md-flex">
                             <img src="../images/homePage/popularProducts/cake-balls-4139982_640.jpg" alt="Placeholder Image" class="rounded signup-img">
@@ -43,47 +43,5 @@
             </div>
         </div>
     </div>
-@endsection
-@section('scripts')
-    <script>
-        document.getElementById('loginBtn').addEventListener('click', function () {
-            const csrfToken = '{{ csrf_token() }}';
-
-            const payload = {
-                email: document.getElementById('email').value,
-                password: document.getElementById('password').value,
-            };
-
-            fetch("{{ route('login.submit') }}", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Accept": "application/json",
-                    "X-CSRF-TOKEN": csrfToken,
-                    "X-Requested-With": "XMLHttpRequest"
-                },
-                body: JSON.stringify(payload)
-            })
-                .then(res => res.json().then(data => {
-                    if (!res.ok) throw data;
-                    return data;
-                }))
-                .then(data => {
-                    if (data.success) {
-                        window.location.href = "{{ route('home') }}";
-                    } else {
-                        alert(data.message || "Login failed");
-                    }
-                })
-                .catch(err => {
-                    if (err.errors) {
-                        const messages = Object.values(err.errors).flat().join('\n');
-                        alert(messages);
-                    } else {
-                        alert(err.message || "Something went wrong");
-                    }
-                });
-        });
-    </script>
 @endsection
 

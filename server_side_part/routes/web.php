@@ -8,6 +8,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\AdminController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -50,3 +51,7 @@ Route::post('/cart/update/{productId}', [CartController::class, 'updateQuantity'
 Route::get('/cart/remove/{productId}', [CartController::class, 'removeFromCart'])->name('cart.remove');
 Route::get('/checkout', [CartController::class, 'checkout'])->name('checkout');
 Route::post('/checkout', [CartController::class, 'placeOrder'])->name('order.place');
+
+
+Route::get('/admin', [AdminController::class,'account'])->name('admin');
+Route::post('/admin/products/store', [AdminController::class, 'storeProduct'])->name('admin.products.store');

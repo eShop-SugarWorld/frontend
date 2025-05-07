@@ -14,7 +14,11 @@
                 <ul class="navbar-nav textOption">
                     @auth
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('profile') }}">Profile</a>
+                            @if(session('is_admin'))
+                                <a class="nav-link" href="{{ route('admin') }}">Admin Panel</a>
+                            @else
+                                <a class="nav-link" href="{{ route('profile') }}">Profile</a>
+                            @endif
                         </li>
                         <li class="nav-item">
                             <a href="#" class="nav-link" onclick="logout(event)">Log out</a>

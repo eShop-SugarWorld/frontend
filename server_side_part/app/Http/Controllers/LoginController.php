@@ -23,19 +23,23 @@ class LoginController extends Controller
             $userModel = User::find($user->user_id);
 
             Auth::login($userModel);
+            if ($userModel->email === '090705jk@gmail.com') {
+                session(['is_admin' => true]);
+                return redirect()->route('admin');
+            }
 
-            return response()->json(['success' => true]);
+            session(['is_admin' => false]);
+            return redirect()->route('home');
         }
-
-        return response()->json([
-            'success' => false,
-            'message' => 'Invalid credentials',
-        ], 401);
+        return back()->withErrors([
+            'email' => 'Invalid email or password',
+        ])->withInput();
     }
 
     public function logout(Request $request)
     {
         Auth::logout();
+        session()->forget('is_admin');
         return redirect()->route('home');
     }
 }

@@ -1,0 +1,215 @@
+@extends('layouts.app')
+
+@section('additional-css')
+    <link rel="stylesheet" href="{{ asset('css/admin-page.css') }}">
+@endsection
+
+@section('title', 'Admin page')
+
+@section('main')
+    <div class="container my-5 information">
+        <div class="profile-wrapper">
+            <div class="row">
+                <div class="col-md-4 col-lg-3">
+                    <div class="sidebar">
+                        <h3 class="mb-4">Products settings</h3>
+                        <div class="nav flex-column">
+                            <button class="nav-link profile-tab active" onclick="showTab('product-list')">Product list</button>
+                            <button class="nav-link profile-tab" onclick="showTab('add-product')">Add product</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-8 col-lg-9">
+                    <div class="tab-content active" id="product-list">
+                        <h2 class="mb-4">Product List</h2>
+
+                        <div class="d-flex justify-content-between mb-4">
+                            <div class="search-container">
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="productSearchInput"
+                                    placeholder="Search products..."
+                                    style="width: 250px;"
+                                >
+                            </div>
+
+                            <div class="filter-container">
+                                <select class="form-select" id="categoryFilter" style="width: 200px;">
+                                    <option value="all">All Categories</option>
+                                    <option value="category1">Category 1</option>
+                                    <option value="category2">Category 2</option>
+                                    <option value="category3">Category 3</option>
+                                    <option value="category4">Category 4</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            @foreach($products as $product)
+                                @php
+                                    $image = $product->images->first();
+                                    $base64 = null;
+                                    $mimeType = "image/jpg";
+                                    if ($image && $image->image_data) {
+                                        $base64 = $image->image_data;
+
+                                        $imageData = base64_decode($base64);
+                                        $finfo = finfo_open(FILEINFO_MIME_TYPE);
+                                        $mimeType = finfo_buffer($finfo, $imageData);
+                                        finfo_close($finfo);
+                                    }
+                                @endphp
+                                <div class="col-md-6 col-lg-4 mb-4">
+                                    <div class="card">
+                                        @if($base64 ?? false)
+                                            <img src="data:{{ $mimeType }};base64,{{ $base64 }}" class="card-img-top" alt="{{ $product->name }}">
+                                        @else
+                                            <img src="{{ $image ?? asset('images/placeholder.jpg') }}" class="card-img-top" alt="{{ $product->name ?? 'No image available' }}">
+                                        @endif
+                                        <div class="card-body">
+                                            <h5 class="card-title">{{ $product->name }}</h5>
+                                            <p class="card-text clamp-3">{{ Str::limit($product->description, 100) }}</p>
+                                            <div class="d-flex justify-content-between">
+                                                <button class="btn btn-edit">Edit</button>
+                                                <button class="btn btn-delete">Delete</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+
+                    <div class="tab-content" id="add-product">
+                        <h2 class="mb-4">Add Product</h2>
+                        <form action="{{ route('admin.products.store') }}" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            <div class="mb-3">
+                                <label for="productTitle" class="form-label">Product Title</label>
+                                <input type="text" name="productTitle" class="form-control" id="productTitle" placeholder="Enter product title">
+                            </div>
+                            <div class="mb-3">
+                                <label for="productDescription" class="form-label">Description</label>
+                                <textarea name="productDescription" class="form-control" id="productDescription" rows="3" placeholder="Enter product description"></textarea>
+                            </div>
+{{--                            <div class="mb-3">--}}
+{{--                                <label class="form-label">Images</label>--}}
+{{--                                <div class="d-flex gap-3">--}}
+
+{{--                                    <div class="image-preview" id="imagePreview1">--}}
+{{--                                        <img src="../images/homePage/popularProducts/cake-balls-4139982_640.jpg" alt="Image Preview 1" class="img-preview">--}}
+{{--                                        <span class="placeholder-text">img</span>--}}
+{{--                                    </div>--}}
+{{--                                    <div class="image-preview" id="imagePreview2">--}}
+{{--                                        <img src="../images/homePage/popularProducts/christmas-3865695_640.jpg" alt="Image Preview 2" class="img-preview" >--}}
+{{--                                        <span class="placeholder-text">img</span>--}}
+{{--                                    </div>--}}
+{{--                                    <div>--}}
+{{--                                        <input type="file" name="images[]" id="imageUpload" accept="image/*" multiple style="display: none;">--}}
+{{--                                        <button type="button" class="btn btn-upload" onclick="document.getElementById('imageUpload').click()">Upload</button>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+                            <div class="mb-3">
+                                <label class="form-label">Images</label>
+                                <div class="d-flex gap-3 flex-wrap" id="imagePreviewContainer">
+
+                                </div>
+                                <div class="mt-2">
+                                    <div class="upload-wrapper">
+                                        <button type="button" class="upload-btn">📤 Upload Images</button>
+                                        <input type="file" name="images[]" id="imageUpload" class="upload-input" accept="image/*" multiple>
+                                    </div>
+{{--                                    <input type="file" name="images[]"  id="imageUpload" accept="image/*" multiple>--}}
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Ingredients</label>
+                                <select class="form-select" name="ingredients[]" multiple>
+                                    @foreach($ingredients as $ingredient)
+                                        <option value="{{ $ingredient->name }}">{{ $ingredient->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="productPrice" class="form-label">Price</label>
+                                <div class="input-group" style="width: 200px;">
+                                    <span class="input-group-text">$</span>
+                                    <input type="number" name="productPrice" class="form-control" id="productPrice" placeholder="0">
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="productCategory" class="form-label">Category</label>
+                                <select class="form-select" id="productCategory" name="productCategory[]" multiple>
+                                    @foreach($categories as $category)
+                                        <option value="{{ $category->name }}">{{ $category->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-custom">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+@endsection
+@section('scripts')
+    <script>
+        function showTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            document.querySelectorAll('.profile-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            document.getElementById(tabId).classList.add('active');
+
+            document.querySelector(`button[onclick="showTab('${tabId}')"]`).classList.add('active');
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            showTab('product-list');
+            // $('select[name="ingredients[]"]').select2({
+            //     placeholder: "Select ingredients",
+            //     width: '100%'
+            // });
+            // $('select[name="productCategory[]"]').select2({
+            //     placeholder: "Select categories",
+            //     width: '100%'
+            // });
+
+            document.getElementById('imageUpload').addEventListener('change', function (event) {
+                const container = document.getElementById('imagePreviewContainer');
+                container.innerHTML = '';
+
+                const files = event.target.files;
+
+                Array.from(files).forEach(file => {
+                    if (file && file.type.startsWith('image/')) {
+                        const reader = new FileReader();
+
+                        reader.onload = function (e) {
+                            const img = document.createElement('img');
+                            img.src = e.target.result;
+                            img.className = 'img-thumbnail';
+                            img.style.maxWidth = '150px';
+                            img.style.maxHeight = '150px';
+                            img.style.marginRight = '10px';
+                            container.appendChild(img);
+                        };
+
+                        reader.readAsDataURL(file);
+                    }
+                });
+            });
+        });
+    </script>
+
+@endsection
