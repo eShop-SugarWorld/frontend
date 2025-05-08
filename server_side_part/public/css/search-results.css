@@ -4,13 +4,13 @@
 
 .myNavbar {
     background-color: #F0F9F8 ;
-    padding: 10px 0; 
+    padding: 10px 0;
 }
 body {
     font-family:  'brandon-grotesque',sans-serif;
-    background-color: #F0F9F8; 
-   
-    margin: 0; 
+    background-color: #F0F9F8;
+
+    margin: 0;
 }
 
 .textHome {
@@ -37,7 +37,36 @@ body {
     padding: 20px 0;
     background:#81BFB7;
 }
+.btn-toggle-filters {
+    background-color: #F3A2BE;
+    color: #F0F9F8;
+    border: 2px solid #FFD3DD;
+    border-radius: 5px;
+    font-family: 'brandon-grotesque', sans-serif;
+    font-size: 16px;
+    padding: 10px;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+
+.btn-toggle-filters:hover {
+    background-color: #FFD3DD;
+    color: #F0F9F8;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.btn-toggle-filters:active, .btn-toggle-filters:focus {
+    color: #F3A2BE !important;
+    outline: none !important;
+    border: 2px solid #F3A2BE !important;
+    box-shadow: 0 0 0 2px rgba(243, 162, 190, 0.5) !important;
+}
+
 @media (max-width: 576px) {
+    .btn-toggle-filters {
+        width: 100%;
+        font-size: 14px;
+        padding: 12px;
+    }
     .navbar-nav {
         display: flex;
         flex-direction: row;
@@ -98,8 +127,8 @@ body {
 .category-btn {
     background-color: #F3A2BE;
     color: #F0F9F8;
-    border: 2px #FFD3DD solid; 
-   
+    border: 2px #FFD3DD solid;
+
     padding: 10px 15px;
     border-radius: 5px;
     transition: 0.3s;
@@ -122,7 +151,7 @@ body {
 
 .search-container input {
     width: 250px;
-    
+
 }
 
 .search-container button {
@@ -142,25 +171,25 @@ body {
 }
 
 #searchInput {
-    border: 2px #FFD3DD solid; 
+    border: 2px #FFD3DD solid;
     background-color: #F0F9F8;
-    color: #F3A2BE ; 
+    color: #F3A2BE ;
 }
 #searchInput::placeholder {
-    color: #F3A2BE; 
-    opacity: 1; 
+    color: #F3A2BE;
+    opacity: 1;
 }
 #searchButton {
     background-color: #F0F9F8;
-    color: #F3A2BE; 
-    border: 2px #FFD3DD solid; 
+    color: #F3A2BE;
+    border: 2px #FFD3DD solid;
     transition: background-color 0.3s;
     margin-left: 5px;
-    
+
 }
 #searchButton:hover {
     background-color: #FFD3DD;
-    color: #F0F9F8; 
+    color: #F0F9F8;
 }
 .popup {
     display: none;
@@ -204,14 +233,14 @@ footer a:hover {
 
 .card {
     background-color: #F3A2BE;
-    border: 2px #F3A2BE dashed; 
+    border: 2px #F3A2BE dashed;
     border-radius: 10px;
 }
 .card-title {
     color: #F0F9F8;
 }
 .card-text {
-    color: #F0F9F8; 
+    color: #F0F9F8;
 }
 
 
@@ -262,9 +291,9 @@ footer a:hover {
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
 }
 .card-img-top {
-    height: 200px; 
-    object-fit: cover; 
-    border-radius: 10px 10px 0 0; 
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px 10px 0 0;
 }
 .card-body {
     text-align: center;
@@ -325,7 +354,7 @@ footer a:hover {
 
     .card-img-top {
         height: 200px;
-    
+
     }
 }
 

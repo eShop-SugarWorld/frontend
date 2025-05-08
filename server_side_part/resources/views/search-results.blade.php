@@ -11,62 +11,84 @@
         <div class="container my-5">
             <div class="row">
                 <div class="col-lg-3 col-md-4 col-12 mb-4">
-                    <div class="filters p-4 rounded">
-                        <h3 class="mb-4">Filters</h3>
-                        <form method="GET" id="filtersForm">
-                            <input type="hidden" name="query" value="{{ request('query') }}">
+                    <button class="btn btn-toggle-filters d-md-none mb-3 w-100" type="button" data-bs-toggle="collapse" data-bs-target="#filtersCollapse" aria-expanded="false" aria-controls="filtersCollapse">
+                        Collapsing Filters
+                    </button>
 
-                            {{-- Сортування --}}
-                            <div class="filter-section mb-4">
-                                <h5>Rearrangement of products</h5>
-                                <select class="form-select" aria-label="Sort products" id="sortPrice" name="sortPrice" onchange="this.form.submit()">
-                                    <option value="asc" {{ request('sortPrice', 'asc') === 'asc' ? 'selected' : '' }}>Low price</option>
-                                    <option value="desc" {{ request('sortPrice') === 'desc' ? 'selected' : '' }}>High price</option>
-                                </select>
-                            </div>
 
-                            {{-- Фільтр по типу солодощів --}}
-                            <div class="filter-section mb-4">
-                                <h5>Type of sweets</h5>
-                                @foreach (['Chocolate', 'Marmalade', 'Biscuits'] as $sweet)
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="{{ $sweet }}" id="filter-{{ strtolower($sweet) }}"
-                                               name="sweet_type[]"
-                                               {{ in_array($sweet, request('sweet_type', [])) ? 'checked' : '' }}
-                                               onchange="this.form.submit()">
-                                        <label class="form-check-label" for="filter-{{ strtolower($sweet) }}">{{ $sweet }}</label>
-                                    </div>
-                                @endforeach
-                            </div>
-                            <div class="filter-section mb-4">
-                                <h5>Celebration event</h5>
-                                @foreach (['Date','Wedding','Birthday party'] as  $label)
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="{{ $label }}" id="event-{{ strtolower($label) }}"
-                                               name="event_type[]"
-                                               {{ in_array($label, request('event_type', [])) ? 'checked' : '' }}
-                                               onchange="this.form.submit()">
-                                        <label class="form-check-label" for="event-{{ strtolower($label) }}">{{ $label }}</label>
-                                    </div>
-                                @endforeach
-                            </div>
+                    <div id="filtersCollapse" class="collapse show d-lg-block">
+                        <div class="filters p-4 rounded">
+                            <h3 class="mb-4">Filters</h3>
+                            <form method="GET" id="filtersForm">
+                                <input type="hidden" name="query" value="{{ request('query') }}">
 
-                            <div class="filter-section mb-4">
-                                <h5>Price</h5>
-                                <div id="priceRange" class="mb-2"></div>
-                                <div class="d-flex justify-content-between">
-                                    <span id="minPrice">$0</span>
-                                    <span id="maxPrice">$150</span>
+                                <div class="filter-section mb-4">
+                                    <h5>Rearrangement of products</h5>
+                                    <select class="form-select" aria-label="Sort products" id="sortPrice" name="sortPrice" onchange="this.form.submit()">
+                                        <option value="asc" {{ request('sortPrice', 'asc') === 'asc' ? 'selected' : '' }}>Low price</option>
+                                        <option value="desc" {{ request('sortPrice') === 'desc' ? 'selected' : '' }}>High price</option>
+                                    </select>
                                 </div>
-                                <input type="hidden" id="minPriceInput" name="minPrice" value="{{ request('minPrice', 0) }}">
-                                <input type="hidden" id="maxPriceInput" name="maxPrice" value="{{ request('maxPrice', 150) }}">
-                            </div>
-                        </form>
+
+                                <div class="filter-section mb-4">
+                                    <h5>Type of sweets</h5>
+                                    @foreach (['Chocolate', 'Marmalade', 'Biscuits'] as $sweet)
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="{{ $sweet }}" id="filter-{{ strtolower($sweet) }}"
+                                                   name="sweet_type[]"
+                                                   {{ in_array($sweet, request('sweet_type', [])) ? 'checked' : '' }}
+                                                   onchange="this.form.submit()">
+                                            <label class="form-check-label" for="filter-{{ strtolower($sweet) }}">{{ $sweet }}</label>
+                                        </div>
+                                    @endforeach
+                                </div>
+                                <div class="filter-section mb-4">
+                                    <h5>Celebration event</h5>
+                                    @foreach (['Date','Wedding','Birthday party'] as $label)
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="{{ $label }}" id="event-{{ strtolower($label) }}"
+                                                   name="event_type[]"
+                                                   {{ in_array($label, request('event_type', [])) ? 'checked' : '' }}
+                                                   onchange="this.form.submit()">
+                                            <label class="form-check-label" for="event-{{ strtolower($label) }}">{{ $label }}</label>
+                                        </div>
+                                    @endforeach
+                                </div>
+
+                                <div class="filter-section mb-4">
+                                    <h5>Price</h5>
+                                    <div id="priceRange" class="mb-2"></div>
+                                    <div class="d-flex justify-content-between">
+                                        <span id="minPrice">$0</span>
+                                        <span id="maxPrice">$150</span>
+                                    </div>
+                                    <input type="hidden" id="minPriceInput" name="minPrice" value="{{ request('minPrice', 0) }}">
+                                    <input type="hidden" id="maxPriceInput" name="maxPrice" value="{{ request('maxPrice', 150) }}">
+                                </div>
 
 
-
+                                <div class="filter-section mb-4">
+                                    <h5>Ingredients</h5>
+                                    <div style="max-height: 150px; overflow-y: auto; border: 1px solid #ddd; padding: 10px; border-radius: 5px;">
+                                        @foreach ($allIngredients as $ingredient)
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="{{ $ingredient->name }}"
+                                                       id="ingredient-{{ strtolower($ingredient->name) }}"
+                                                       name="ingredients[]"
+                                                       {{ in_array($ingredient->name, request('ingredients', [])) ? 'checked' : '' }}
+                                                       onchange="this.form.submit()">
+                                                <label class="form-check-label" for="ingredient-{{ strtolower($ingredient->name) }}">
+                                                    {{ $ingredient->name }}
+                                                </label>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
+
 
                 <div class="col-lg-9 col-md-8 col-12">
 
@@ -93,12 +115,13 @@
                             </div>
                     @endforelse
                 </div>
-
+                    <div class="mt-4 d-flex justify-content-center">
+                        {{ $products->links() }}
+                        {{--                    {{ $products->appends(request()->query())->links() }}--}}
+                    </div>
                 </div>
-                <div class="mt-4 d-flex justify-content-center">
-                    {{ $products->links() }}
-{{--                    {{ $products->appends(request()->query())->links() }}--}}
-                </div>
+            </div>
+        </div>
 
 
 @endsection

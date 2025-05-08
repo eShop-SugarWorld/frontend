@@ -72,8 +72,13 @@
                                             <h5 class="card-title">{{ $product->name }}</h5>
                                             <p class="card-text clamp-3">{{ Str::limit($product->description, 100) }}</p>
                                             <div class="d-flex justify-content-between">
-                                                <button class="btn btn-edit">Edit</button>
-                                                <button class="btn btn-delete">Delete</button>
+                                                <a href="{{ route('admin.products.edit', $product->id) }}" class="btn btn-edit">Edit</a>
+                                                {{--                                                <button class="btn btn-edit">Edit</button>--}}
+                                                <form action="{{ route('admin.products.destroy', $product->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this product?');">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-delete">Delete</button>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>
@@ -94,24 +99,6 @@
                                 <label for="productDescription" class="form-label">Description</label>
                                 <textarea name="productDescription" class="form-control" id="productDescription" rows="3" placeholder="Enter product description"></textarea>
                             </div>
-{{--                            <div class="mb-3">--}}
-{{--                                <label class="form-label">Images</label>--}}
-{{--                                <div class="d-flex gap-3">--}}
-
-{{--                                    <div class="image-preview" id="imagePreview1">--}}
-{{--                                        <img src="../images/homePage/popularProducts/cake-balls-4139982_640.jpg" alt="Image Preview 1" class="img-preview">--}}
-{{--                                        <span class="placeholder-text">img</span>--}}
-{{--                                    </div>--}}
-{{--                                    <div class="image-preview" id="imagePreview2">--}}
-{{--                                        <img src="../images/homePage/popularProducts/christmas-3865695_640.jpg" alt="Image Preview 2" class="img-preview" >--}}
-{{--                                        <span class="placeholder-text">img</span>--}}
-{{--                                    </div>--}}
-{{--                                    <div>--}}
-{{--                                        <input type="file" name="images[]" id="imageUpload" accept="image/*" multiple style="display: none;">--}}
-{{--                                        <button type="button" class="btn btn-upload" onclick="document.getElementById('imageUpload').click()">Upload</button>--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
                             <div class="mb-3">
                                 <label class="form-label">Images</label>
                                 <div class="d-flex gap-3 flex-wrap" id="imagePreviewContainer">
@@ -122,7 +109,6 @@
                                         <button type="button" class="upload-btn">📤 Upload Images</button>
                                         <input type="file" name="images[]" id="imageUpload" class="upload-input" accept="image/*" multiple>
                                     </div>
-{{--                                    <input type="file" name="images[]"  id="imageUpload" accept="image/*" multiple>--}}
                                 </div>
                             </div>
 
@@ -138,7 +124,16 @@
                                 <label for="productPrice" class="form-label">Price</label>
                                 <div class="input-group" style="width: 200px;">
                                     <span class="input-group-text">$</span>
-                                    <input type="number" name="productPrice" class="form-control" id="productPrice" placeholder="0">
+                                    <input
+                                        type="number"
+                                        name="productPrice"
+                                        class="form-control"
+                                        id="productPrice"
+                                        value="1"
+                                        min="1"
+                                        step="any"
+                                        required
+                                    >
                                 </div>
                             </div>
                             <div class="mb-3">
@@ -173,43 +168,127 @@
 
             document.querySelector(`button[onclick="showTab('${tabId}')"]`).classList.add('active');
         }
-
         document.addEventListener('DOMContentLoaded', () => {
-            showTab('product-list');
-            // $('select[name="ingredients[]"]').select2({
-            //     placeholder: "Select ingredients",
-            //     width: '100%'
-            // });
-            // $('select[name="productCategory[]"]').select2({
-            //     placeholder: "Select categories",
-            //     width: '100%'
-            // });
+            const imageUpload = document.getElementById('imageUpload');
+            const container = document.getElementById('imagePreviewContainer');
+            let selectedFiles = [];
 
-            document.getElementById('imageUpload').addEventListener('change', function (event) {
-                const container = document.getElementById('imagePreviewContainer');
+            imageUpload.addEventListener('change', function (event) {
                 container.innerHTML = '';
+                selectedFiles = Array.from(event.target.files);
 
-                const files = event.target.files;
-
-                Array.from(files).forEach(file => {
+                selectedFiles.forEach((file, index) => {
                     if (file && file.type.startsWith('image/')) {
                         const reader = new FileReader();
 
                         reader.onload = function (e) {
+                            const imageWrapper = document.createElement('div');
+                            imageWrapper.style.position = 'relative';
+                            imageWrapper.style.display = 'inline-block';
+
                             const img = document.createElement('img');
                             img.src = e.target.result;
                             img.className = 'img-thumbnail';
                             img.style.maxWidth = '150px';
                             img.style.maxHeight = '150px';
                             img.style.marginRight = '10px';
-                            container.appendChild(img);
+
+                            const deleteBtn = document.createElement('button');
+                            deleteBtn.textContent = '✖';
+                            deleteBtn.style.position = 'absolute';
+                            deleteBtn.style.top = '5px';
+                            deleteBtn.style.right = '5px';
+                            deleteBtn.style.background = '#F3A2BE';
+                            deleteBtn.style.border = 'none';
+                            deleteBtn.style.borderRadius = '50%';
+                            deleteBtn.style.color = '#fff';
+                            deleteBtn.style.width = '24px';
+                            deleteBtn.style.height = '24px';
+                            deleteBtn.style.cursor = 'pointer';
+
+                            deleteBtn.addEventListener('click', () => {
+                                selectedFiles.splice(index, 1);
+                                updateImagePreview();
+                            });
+
+                            imageWrapper.appendChild(img);
+                            imageWrapper.appendChild(deleteBtn);
+                            container.appendChild(imageWrapper);
                         };
 
                         reader.readAsDataURL(file);
                     }
                 });
             });
+
+            function updateImagePreview() {
+                container.innerHTML = '';
+                selectedFiles.forEach((file, index) => {
+                    const reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        const imageWrapper = document.createElement('div');
+                        imageWrapper.style.position = 'relative';
+                        imageWrapper.style.display = 'inline-block';
+
+                        const img = document.createElement('img');
+                        img.src = e.target.result;
+                        img.className = 'img-thumbnail';
+                        img.style.maxWidth = '150px';
+                        img.style.maxHeight = '150px';
+                        img.style.marginRight = '10px';
+
+                        const deleteBtn = document.createElement('button');
+                        deleteBtn.textContent = '✖';
+                        deleteBtn.style.position = 'absolute';
+                        deleteBtn.style.top = '5px';
+                        deleteBtn.style.right = '5px';
+                        deleteBtn.style.background = '#F3A2BE';
+                        deleteBtn.style.border = 'none';
+                        deleteBtn.style.borderRadius = '50%';
+                        deleteBtn.style.color = '#fff';
+                        deleteBtn.style.width = '24px';
+                        deleteBtn.style.height = '24px';
+                        deleteBtn.style.cursor = 'pointer';
+
+                        deleteBtn.addEventListener('click', () => {
+                            selectedFiles.splice(index, 1);
+                            updateImagePreview();
+                        });
+
+                        imageWrapper.appendChild(img);
+                        imageWrapper.appendChild(deleteBtn);
+                        container.appendChild(imageWrapper);
+                    };
+
+                    reader.readAsDataURL(file);
+                });
+
+                const dataTransfer = new DataTransfer();
+                selectedFiles.forEach(file => dataTransfer.items.add(file));
+                imageUpload.files = dataTransfer.files;
+            }
         });
+
+        const input = document.getElementById("productPrice");
+
+        input.addEventListener("keydown", function (e) {
+
+            if (
+                ["e", "E", "+", "-"].includes(e.key) ||
+                (e.key.length === 1 && !e.key.match(/[0-9\.]/)) ||
+                (e.key === "." && input.value.includes("."))
+            ) {
+                e.preventDefault();
+            }
+        });
+
+        input.addEventListener("input", function () {
+            if (this.value < 1) {
+                this.value = 1;
+            }
+        });
+
     </script>
 
 @endsection

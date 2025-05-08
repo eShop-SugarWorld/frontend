@@ -25,7 +25,7 @@ class ProductController extends Controller
         }
 
 
-    
+
 
         if ($request->filled('sortPrice')) {
             $sort = $request->input('sortPrice') === 'desc' ? 'desc' : 'asc';
@@ -45,10 +45,16 @@ class ProductController extends Controller
         if ($request->filled('minPrice') && $request->filled('maxPrice')) {
             $query->whereBetween('price', [$request->minPrice, $request->maxPrice]);
         }
+        if ($request->filled('ingredients')) {
+            $query->whereHas('ingredients', function ($q) use ($request) {
+                $q->whereIn('name', $request->input('ingredients'));
+            });
+        }
 
         $products = $query->paginate(6)->appends($request->all());
 
-        return view('search-results', compact('products'));
+        $allIngredients = Ingredient::all();
+        return view('search-results', compact('products', 'allIngredients'));
 
     }
     public function show($id)
@@ -60,16 +66,16 @@ class ProductController extends Controller
     protected function getRandomRecommendedProducts($excludeId = null)
     {
         $query = Product::with('images')->inRandomOrder();
-        
+
         if ($excludeId) {
-            $query->where('id', '!=', $excludeId); 
+            $query->where('id', '!=', $excludeId);
         }
 
         return $query->take(3)->get();
     }
     public function addToCart(Request $request, $productId)
     {
-        $quantity = $request->input('quantity', 1); 
+        $quantity = $request->input('quantity', 1);
 
         if (Auth::check()) {
             $user = Auth::user();
@@ -88,7 +94,7 @@ class ProductController extends Controller
                 ]);
             }
         } else {
-            $cart = session()->get('cart', []); 
+            $cart = session()->get('cart', []);
             if (isset($cart[$productId])) {
                 $cart[$productId] += $quantity;
             } else {

@@ -101,5 +101,117 @@ class AdminController extends Controller
 
         return redirect()->back()->with('success', '✅ Продукт успішно додано!');
     }
+    public function editProduct($id)
+    {
+        $product = Product::with('categories', 'ingredients', 'images')->findOrFail($id);
+        $categories = Category::all();
+        $ingredients = Ingredient::all();
+
+        return view('admin-update-product', compact('product', 'categories', 'ingredients'));
+    }
+//    public function updateProduct(Request $request, $id)
+//    {
+//        $product = Product::findOrFail($id);
+//
+//        $validated = $request->validate([
+//            'productTitle' => 'required|string|max:255',
+//            'productDescription' => 'required|string',
+//            'productPrice' => 'required|numeric|min:0',
+//            'productCategory' => 'required|array',
+//            'ingredients' => 'nullable|array',
+//            'ingredients.*' => 'string',
+//            'images.*' => 'image|mimes:jpeg,png,jpg|max:2048',
+//        ]);
+//
+//        $product->update([
+//            'name' => $validated['productTitle'],
+//            'description' => $validated['productDescription'],
+//            'price' => $validated['productPrice'],
+//        ]);
+//
+//        // Sync categories and ingredients
+//        $categoryIds = collect($validated['productCategory'])->map(function ($name) {
+//            return Category::firstOrCreate(['name' => $name])->id;
+//        });
+//        $product->categories()->sync($categoryIds);
+//
+//        $ingredientIds = collect($validated['ingredients'] ?? [])->map(function ($name) {
+//            return Ingredient::firstOrCreate(['name' => $name])->id;
+//        });
+//        $product->ingredients()->sync($ingredientIds);
+//
+//        // Save new images (optional — does not delete old ones)
+//        if ($request->hasFile('images')) {
+//            foreach ($request->file('images') as $file) {
+//                $filename = time() . '_' . $file->getClientOriginalName();
+//                $file->move(public_path('images'), $filename);
+//
+//                $imageData = file_get_contents(public_path('images/' . $filename));
+//                $product->images()->create([
+//                    'image_data' => base64_encode($imageData),
+//                ]);
+//            }
+//        }
+//
+//        return redirect()->route('admin')->with('success', '✅ Product updated!');
+//    }
+    public function updateProduct(Request $request, $id)
+    {
+        $product = Product::findOrFail($id);
+
+        if ($request->has('delete_images')) {
+            foreach ($request->delete_images as $imageId) {
+                $image = $product->images()->find($imageId);
+                if ($image) {
+                    $image->delete();
+                }
+            }
+        }
+
+        $product->name = $request->productTitle;
+        $product->description = $request->productDescription;
+        $product->price = $request->productPrice;
+
+        $product->ingredients()->sync([]);
+        $product->categories()->sync([]);
+
+        if ($request->has('ingredients')) {
+            $ingredientIds = Ingredient::whereIn('name', $request->ingredients)->pluck('id');
+            $product->ingredients()->sync($ingredientIds);
+        }
+
+        if ($request->has('productCategory')) {
+            $categoryIds = Category::whereIn('name', $request->productCategory)->pluck('id');
+            $product->categories()->sync($categoryIds);
+        }
+
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $imageFile) {
+                $imageData = base64_encode(file_get_contents($imageFile->getRealPath()));
+                $product->images()->create([
+                    'image_data' => $imageData,
+                ]);
+            }
+        }
+
+        $product->save();
+
+        return redirect()->route('admin')->with('success', 'Product updated successfully!');
+    }
+
+    public function destroy($id)
+    {
+        $product = Product::findOrFail($id);
+
+        foreach ($product->images as $image) {
+            $image->delete();
+        }
+
+        $product->delete();
+
+        return redirect()->back()->with('success', 'Product deleted successfully.');
+    }
+
+
 
 }

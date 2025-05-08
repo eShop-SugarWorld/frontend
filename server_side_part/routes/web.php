@@ -55,3 +55,8 @@ Route::post('/checkout', [CartController::class, 'placeOrder'])->name('order.pla
 
 Route::get('/admin', [AdminController::class,'account'])->name('admin');
 Route::post('/admin/products/store', [AdminController::class, 'storeProduct'])->name('admin.products.store');
+
+
+Route::get('/admin/products/{id}/edit', [AdminController::class, 'editProduct'])->name('admin.products.edit');
+Route::put('/admin/products/{id}/update', [AdminController::class, 'updateProduct'])->name('admin.products.update');
+Route::delete('/admin/products/{id}', [AdminController::class, 'destroy'])->name('admin.products.destroy');
