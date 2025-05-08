@@ -15,7 +15,7 @@
                     <h2 class="text-center mb-4">Log In</h2>
                     <div class="row">
                         <div class="col-md-6 col-12 mb-4">
-                            <form method="POST" class="form-container" action="{{ route('login.submit') }}">
+                            <form method="POST"  action="{{ route('login.submit') }}">
                                 @csrf
                                 <div class="mb-3">
                                     <label for="email" class="form-label">Email</label>
