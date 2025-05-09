@@ -24,27 +24,30 @@
                     <div class="tab-content active" id="product-list">
                         <h2 class="mb-4">Product List</h2>
 
-                        <div class="d-flex justify-content-between mb-4">
+{{--                        <div class="d-flex justify-content-between mb-4">--}}
+{{--                            <div class="search-container">--}}
+{{--                                <input--}}
+{{--                                    type="text"--}}
+{{--                                    class="form-control"--}}
+{{--                                    id="productSearchInput"--}}
+{{--                                    placeholder="Search products..."--}}
+{{--                                    style="width: 250px;"--}}
+{{--                                >--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+                        <form method="GET" action="{{ route('admin') }}" class="d-flex mb-4" style="max-width: 400px;">
                             <div class="search-container">
                                 <input
                                     type="text"
-                                    class="form-control"
-                                    id="productSearchInput"
+                                    name="search"
+                                    class="form-control me-2"
                                     placeholder="Search products..."
-                                    style="width: 250px;"
+                                    value="{{ request('search') }}"
                                 >
                             </div>
+                            <button type="submit" class="btn-custom">Search</button>
+                        </form>
 
-                            <div class="filter-container">
-                                <select class="form-select" id="categoryFilter" style="width: 200px;">
-                                    <option value="all">All Categories</option>
-                                    <option value="category1">Category 1</option>
-                                    <option value="category2">Category 2</option>
-                                    <option value="category3">Category 3</option>
-                                    <option value="category4">Category 4</option>
-                                </select>
-                            </div>
-                        </div>
 
                         <div class="row">
                             @foreach($products as $product)
@@ -70,7 +73,7 @@
                                         @endif
                                         <div class="card-body">
                                             <h5 class="card-title">{{ $product->name }}</h5>
-                                            <p class="card-text clamp-3">{{ Str::limit($product->description, 100) }}</p>
+                                            <p class="card-text clamp-3 " style="min-height: 70px">{{ Str::limit($product->description, 100) }}</p>
                                             <div class="d-flex justify-content-between">
                                                 <a href="{{ route('admin.products.edit', $product->id) }}" class="btn btn-edit">Edit</a>
                                                 {{--                                                <button class="btn btn-edit">Edit</button>--}}

@@ -19,12 +19,20 @@ class AdminController extends Controller
     public function account(Request $request)
     {
         if (Auth::check() && session('is_admin') === true) {
-            $products = Product::all();
+            $search = $request->input('search');
+
+            $products = Product::query();
+
+            if ($search) {
+                $products->where('name', 'like', '%' . $search . '%');
+            }
+
+            $products = $products->get();
+
             $categories = Category::all();
             $ingredients = Ingredient::all();
 
             return view('admin-page', compact('products','categories', 'ingredients'));
-//            return view('admin-page');
         }
 
         return redirect()->route('home')->with('error', 'You do not have access to the admin area.');
@@ -38,7 +46,6 @@ class AdminController extends Controller
             'price' => $price,
         ]);
 
-        // Категорії
         if (!is_array($categoryNames)) {
             $categoryNames = [$categoryNames];
         }
@@ -47,13 +54,11 @@ class AdminController extends Controller
             $product->categories()->attach($category->id);
         }
 
-        // Інгредієнти
         foreach ($ingredients as $ingredientName) {
             $ingredient = Ingredient::firstOrCreate(['name' => $ingredientName]);
             $product->ingredients()->attach($ingredient->id);
         }
 
-        // Зображення
         foreach ($imageFilenames as $imageFilename) {
             $imagePath = public_path('images/' . $imageFilename);
 
@@ -80,7 +85,6 @@ class AdminController extends Controller
             'images.*' => 'image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
-        // Завантаження зображень
         $imageFilenames = [];
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $file) {
@@ -109,52 +113,6 @@ class AdminController extends Controller
 
         return view('admin-update-product', compact('product', 'categories', 'ingredients'));
     }
-//    public function updateProduct(Request $request, $id)
-//    {
-//        $product = Product::findOrFail($id);
-//
-//        $validated = $request->validate([
-//            'productTitle' => 'required|string|max:255',
-//            'productDescription' => 'required|string',
-//            'productPrice' => 'required|numeric|min:0',
-//            'productCategory' => 'required|array',
-//            'ingredients' => 'nullable|array',
-//            'ingredients.*' => 'string',
-//            'images.*' => 'image|mimes:jpeg,png,jpg|max:2048',
-//        ]);
-//
-//        $product->update([
-//            'name' => $validated['productTitle'],
-//            'description' => $validated['productDescription'],
-//            'price' => $validated['productPrice'],
-//        ]);
-//
-//        // Sync categories and ingredients
-//        $categoryIds = collect($validated['productCategory'])->map(function ($name) {
-//            return Category::firstOrCreate(['name' => $name])->id;
-//        });
-//        $product->categories()->sync($categoryIds);
-//
-//        $ingredientIds = collect($validated['ingredients'] ?? [])->map(function ($name) {
-//            return Ingredient::firstOrCreate(['name' => $name])->id;
-//        });
-//        $product->ingredients()->sync($ingredientIds);
-//
-//        // Save new images (optional — does not delete old ones)
-//        if ($request->hasFile('images')) {
-//            foreach ($request->file('images') as $file) {
-//                $filename = time() . '_' . $file->getClientOriginalName();
-//                $file->move(public_path('images'), $filename);
-//
-//                $imageData = file_get_contents(public_path('images/' . $filename));
-//                $product->images()->create([
-//                    'image_data' => base64_encode($imageData),
-//                ]);
-//            }
-//        }
-//
-//        return redirect()->route('admin')->with('success', '✅ Product updated!');
-//    }
     public function updateProduct(Request $request, $id)
     {
         $product = Product::findOrFail($id);
