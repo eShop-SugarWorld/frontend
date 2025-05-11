@@ -8,11 +8,42 @@ use App\Models\Product;
 use App\Models\Category;
 use App\Models\Ingredient;
 use App\Models\Image;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 
 class ProductSeeder extends Seeder
 {
     public function run(): void
     {
+        DB::beginTransaction();
+
+        try {
+            if (DB::table('user_auth')->where('email', 'admin@gmail.com')->exists()) {
+                DB::commit();
+                return;
+            }
+
+            $userId = DB::table('user_info')->insertGetId([
+                'first_name' => 'Admin',
+                'last_name' => 'User',
+                'phone_number' => '123456789',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+
+            DB::table('user_auth')->insert([
+                'user_id' => $userId,
+                'email' => 'admin@gmail.com',
+                'password' => Hash::make('admin123'),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            throw new \Exception("Chyba pri vytváraní administrátora: " . $e->getMessage());
+        }
        $this->createProduct('Choco Chunk Classics', 'Crunchy chocolate cookies loaded with gooey milk chocolate chunks.', 8.50, 'Biscuits', ['flour', 'milk chocolate', 'sugar', 'butter'], ['cookies1.jpg', 'cookies1.2.jpg']);
 
        $this->createProduct('Dark Cocoa Crispies', 'Deeply rich chocolate cookies with a crisp edge and a hint of sea salt.', 9.00, ['Biscuits', 'Birthday party'], ['flour', 'dark chocolate', 'cocoa powder', 'sea salt'], ['cookies2.jpg', 'cookies2.2.jpg']);
@@ -23,7 +54,7 @@ class ProductSeeder extends Seeder
 
        $this->createProduct('Choco Cream Pockets', 'Soft chocolate cookies with a luscious dark chocolate ganache filling.', 15.00, ['Biscuits', 'Birthday party'], ['flour', 'cocoa powder', 'dark chocolate', 'cream'], ['biscuits1.jpg', 'biscuits1.2.jpg']);
 
-        $this->createProduct('Marmalade Choco Rounds', 'Round chocolate cookies with a sweet, tangy marmalade center.', 20.00, ['Marmalade', 'Wedding'], ['flour', 'chocolate', 'marmalade', 'sugar'], ['marmalade1.jpg', 'marmalade1.2.jpg']);
+        $this->createProduct('Marmalade Choco Rounds', 'Round chocolate cookies with a sweet, tangy marmalade center.', 20.00, ['Marmalade', 'Wedding'], ['flour', 'chocolate', 'marmalade', 'sugar'],['marmalade1.jpg', 'marmalade1.2.jpg']);
 
 
 
@@ -148,7 +179,7 @@ class ProductSeeder extends Seeder
             $imagePath = public_path('images/' . $imageFilename);
 
             if (File::exists($imagePath)) {
-                echo "✔️ Зображення знайдено: $imagePath\n";
+                echo "✔️ Image found: $imagePath\n";
                 $imageData = file_get_contents($imagePath);
 
                 $image = new Image([
@@ -158,15 +189,15 @@ class ProductSeeder extends Seeder
 
                 try {
                     if ($image->save()) {
-                        echo "✔️ Зображення успішно додано до продукту.\n";
+                        echo "✔️ Image successfully added to the product.\n";
                     } else {
-                        echo "❌ Помилка при додаванні зображення до бази даних.\n";
+                        echo "❌ Error while adding the image to the database.\n";
                     }
                 } catch (\Exception $e) {
-                    echo "❌ Exception при збереженні зображення: " . $e->getMessage() . "\n";
+                    echo "❌ Exception while saving the image: " . $e->getMessage() . "\n";
                 }
             } else {
-                echo "❌ Зображення не знайдено: $imagePath\n";
+                echo "❌ Image not found: $imagePath\n";
             }
         }
     }
