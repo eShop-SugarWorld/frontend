@@ -23,7 +23,7 @@ class LoginController extends Controller
             $userModel = User::find($user->user_id);
 
             Auth::login($userModel);
-            if ($userModel->email === '090705jk@gmail.com') {
+            if ($userModel->email === 'admin@gmail.com') {
                 session(['is_admin' => true]);
                 return redirect()->route('admin');
             }

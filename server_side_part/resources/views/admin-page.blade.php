@@ -50,7 +50,7 @@
 
 
                         <div class="row">
-                            @foreach($products as $product)
+                            @forelse($products as $product)
                                 @php
                                     $image = $product->images->first();
                                     $base64 = null;
@@ -86,7 +86,11 @@
                                         </div>
                                     </div>
                                 </div>
-                            @endforeach
+                            @empty
+                                <div class="text-center w-80">
+                                    <img src="{{ asset('images/product_not_find.jpeg') }}" alt="Not found" class="img-fluid" style="max-width: 300px; margin-top: 80px;border-radius: 15px; ">
+                                </div>
+                            @endforelse
                         </div>
                     </div>
 

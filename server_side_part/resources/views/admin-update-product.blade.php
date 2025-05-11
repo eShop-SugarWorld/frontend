@@ -40,7 +40,7 @@
                                             $mimeType = finfo_buffer(finfo_open(FILEINFO_MIME_TYPE), $imageData);
                                         @endphp
                                         <div class="position-relative text-center image-box">
-                                            <img src="data:{{ $mimeType }};base64,{{ $base64 }}" class="img-thumbnail" style="max-width: 150px;">
+                                            <img src="data:{{ $mimeType }};base64,{{ $base64 }}" class="img-thumbnail" style="width: 150px; height: 150px; object-fit: cover;">
                                             <div class="form-check mt-2">
                                                 <input type="checkbox" class="form-check-input custom-checkbox" name="delete_images[]" value="{{ $image->id }}" id="delete_{{ $image->id }}">
                                                 <label class="form-check-label" for="delete_{{ $image->id }}">Delete</label>
